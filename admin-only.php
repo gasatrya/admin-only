@@ -1,16 +1,16 @@
 <?php
 /**
- * Admin Only
+ * Restrict Dashboard Access
  *
- * @package           Admin Only
+ * @package           Restrict Dashboard Access
  * @author            Ga Satrya
  * @copyright         2023 Ga Satrya
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       Admin Only
- * Plugin URI:        https://gasatrya.dev/
- * Description:       Restrict admin access to administrator only.
+ * Plugin Name:       Restrict Dashboard Access
+ * Plugin URI:        https://wordpress.org/plugins/admin-only/
+ * Description:       This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.
  * Version:           1.0.0
  * Requires at least: 5.2
  * Requires PHP:      7.4
@@ -18,8 +18,6 @@
  * Author URI:        https://gasatrya.dev/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain:       admin-only
- * Domain Path:       /languages
  */
 
 // Exit if accessed directly.
@@ -32,7 +30,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * capability to manage options.
  */
 function ao_dashboard_redirect() {
-	if ( ! current_user_can( apply_filters( 'ao_access_capability', 'manage_options' ) ) ) {
+	if ( ! current_user_can( apply_filters( 'ao_access_capability', 'manage_options' ) ) && ! wp_doing_ajax() ) {
 		wp_safe_redirect( apply_filters( 'ao_redirect_page', home_url( '/' ) ) );
 		exit;
 	}
