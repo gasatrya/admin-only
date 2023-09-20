@@ -1,14 +1,14 @@
 # Restrict WordPress Dashboard Access
 This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.
 
-- Contributors: gasatrya
-- Tags: restrict, dashboard, access, users, administration, login, redirect, membership, roles, lms, ecommerce
-- Requires at least: 3.7
-- Tested up to: 6.4
-- Stable tag: 1.0.0
-- Requires PHP: 7.0
-- License: GPLv2 or later
-- License URI: https://www.gnu.org/licenses/gpl-2.0.html
+- **Contributors**: gasatrya
+- **Tags**: restrict, dashboard, access, users, administration, login, redirect, membership, roles, lms, ecommerce
+- **Requires at least**: 3.7
+- **Tested up to**: 6.4
+- **Stable tag**: 1.0.0
+- **Requires PHP**: 7.0
+- **License**: GPLv2 or later
+- **License URI**: https://www.gnu.org/licenses/gpl-2.0.html
 
 ## Description
 
@@ -23,7 +23,7 @@ Introducing the "Restrict Dashboard Access" WordPress plugin - the simple yet po
 
 ## Changelog
 
-= 1.0.0 =
+**1.0.0**  
 * First version
 
 ## Filters
