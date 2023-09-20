@@ -12,8 +12,8 @@
  * Plugin URI:        https://wordpress.org/plugins/admin-only/
  * Description:       This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.
  * Version:           1.0.0
- * Requires at least: 5.2
- * Requires PHP:      7.4
+ * Requires at least: 3.3
+ * Requires PHP:      7.0
  * Author:            Ga Satrya
  * Author URI:        https://gasatrya.dev/
  * License:           GPL v2 or later

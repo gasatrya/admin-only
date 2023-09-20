@@ -1,7 +1,7 @@
 === Restrict Dashboard Access ===
 Contributors: gasatrya
 Tags: restrict, dashboard, access, users, administration, login, redirect, membership, roles, lms, ecommerce
-Requires at least: 3.7
+Requires at least: 3.3
 Tested up to: 6.4
 Stable tag: 1.0.0
 Requires PHP: 7.0
