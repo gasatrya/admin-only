@@ -12,7 +12,7 @@ This plugin allows you to restrict access to the dashboard area, ensuring that o
 
 == Description ==
 
-Introducing the "Restrict Dashboard Access" WordPress plugin - the simple yet powerful solution for securing your website's backend. This feature-rich plugin offers the following capabilities:
+Introducing the **Restrict Dashboard Access** WordPress plugin - the simple yet powerful solution for securing your website's backend. This feature-rich plugin offers the following capabilities:
 
 * **No Configuration Needed**: Enjoy a hassle-free setup process. The plugin works out of the box, requiring no additional configuration.
 * **Administrator-Only Access**: Ensure that only administrators have access to the dashboard area. This prevents unauthorized users from making changes to your website.

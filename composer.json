@@ -1,10 +1,34 @@
 {
-    "require-dev": {
-        "wp-coding-standards/wpcs": "^3.0"
-    },
-    "config": {
-        "allow-plugins": {
-            "dealerdirect/phpcodesniffer-composer-installer": true
-        }
+  "name": "gasatrya/admin-only",
+  "description": "This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.",
+  "type": "project",
+  "license": "GPL-v2",
+  "authors": [
+    {
+      "name": "Gasatrya",
+      "email": "gasatrya.dev@gmail.com"
     }
+  ],
+  "require-dev": {
+    "wp-coding-standards/wpcs": "^3.0"
+  },
+  "config": {
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    }
+  },
+  "archive": {
+    "exclude": [
+      ".gitignore",
+      "README.md",
+      "composer.json",
+      "composer.lock",
+      "LICENSE",
+      "vendor/",
+      ".vscode/"
+    ]
+  },
+  "scripts": {
+    "zip": "composer archive --format=zip --file admin-only"
+  }
 }
