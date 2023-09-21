@@ -1,14 +1,14 @@
 <?php
 /**
- * Admin Only
+ * Admin Only Dashboard
  *
- * @package           Admin Only
+ * @package           Admin Only Dashboard
  * @author            Ga Satrya
  * @copyright         2023 Ga Satrya
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
- * Plugin Name:       Admin Only
+ * Plugin Name:       Admin Only Dashboard
  * Plugin URI:        https://wordpress.org/plugins/admin-only/
  * Description:       This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.
  * Version:           1.0.0

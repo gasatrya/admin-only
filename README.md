@@ -1,4 +1,4 @@
-# Restrict WordPress Dashboard Access
+# Admin Only WordPress Dashboard
 This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.
 
 - **Contributors**: gasatrya
