@@ -1,6 +1,6 @@
 === Admin Only Dashboard ===
 Contributors: gasatrya
-Tags: restrict, dashboard, access, users, administration, login, redirect, membership, roles, lms, ecommerce
+Tags: restrict, dashboard, administration, membership, roles
 Requires at least: 3.3
 Tested up to: 6.5
 Stable tag: 1.0.0
@@ -8,7 +8,7 @@ Requires PHP: 7.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.
+It allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site.
 
 == Description ==
 
