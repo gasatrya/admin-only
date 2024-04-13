@@ -4,7 +4,7 @@
  *
  * @package           Admin Only Dashboard
  * @author            Ga Satrya
- * @copyright         2023 Ga Satrya
+ * @copyright         2023 - 2024 Ga Satrya
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
@@ -29,13 +29,13 @@ if ( ! defined( 'ABSPATH' ) ) {
  * Redirects the user to the home page if they do not have the
  * capability to manage options.
  */
-function ao_dashboard_redirect() {
-	if ( ! current_user_can( apply_filters( 'ao_access_capability', 'manage_options' ) ) && ! wp_doing_ajax() ) {
-		wp_safe_redirect( apply_filters( 'ao_redirect_page', home_url( '/' ) ) );
+function admon_dashboard_redirect() {
+	if ( ! current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) && ! wp_doing_ajax() ) {
+		wp_safe_redirect( apply_filters( 'admon_redirect_page', home_url( '/' ) ) );
 		exit;
 	}
 }
-add_action( 'admin_init', 'ao_dashboard_redirect' );
+add_action( 'admin_init', 'admon_dashboard_redirect' );
 
 /**
  * Hides the toolbar for non-admin users.
@@ -43,7 +43,7 @@ add_action( 'admin_init', 'ao_dashboard_redirect' );
  * @param bool $show_admin_bar Whether to show the admin toolbar.
  * @return bool Whether to show the admin toolbar.
  */
-function ao_hide_toolbar( $show_admin_bar ) {
-	return ( current_user_can( apply_filters( 'ao_access_capability', 'manage_options' ) ) ) ? $show_admin_bar : false;
+function admon_hide_toolbar( $show_admin_bar ) {
+	return ( current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) ? $show_admin_bar : false;
 }
-add_filter( 'show_admin_bar', 'ao_hide_toolbar' );
+add_filter( 'show_admin_bar', 'admon_hide_toolbar' );

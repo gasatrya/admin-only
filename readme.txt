@@ -31,17 +31,17 @@ Introducing the **Admin Only Dashboard** WordPress plugin - the simple yet power
 **Filter capability**
 
 ```
-function ao_capability() {
+function admon_capability() {
  	return 'unfiltered_html'; // Allow administrator and editor to access dashboard
 }
-add_filter( 'ao_access_capability', 'ao_capability' );
+add_filter( 'admon_access_capability', 'admon_capability' );
 ```
 
 **Filter redirection page**
 
 ```
-function ao_redirect() {
+function admon_redirect() {
  	return home_url( '/user-account/' );
 }
-add_filter( 'ao_redirect_page', 'ao_redirect' );
+add_filter( 'admon_redirect_page', 'admon_redirect' );
 ```
