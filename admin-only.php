@@ -25,25 +25,23 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-/**
- * Redirects the user to the home page if they do not have the
- * capability to manage options.
- */
-function admon_dashboard_redirect() {
-	if ( ! current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) && ! wp_doing_ajax() ) {
-		wp_safe_redirect( apply_filters( 'admon_redirect_page', home_url( '/' ) ) );
-		exit;
-	}
-}
-add_action( 'admin_init', 'admon_dashboard_redirect' );
+// Define plugin constants.
+define( 'ADMON_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
+define( 'ADMON_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
 /**
- * Hides the toolbar for non-admin users.
- *
- * @param bool $show_admin_bar Whether to show the admin toolbar.
- * @return bool Whether to show the admin toolbar.
+ * Load plugin functionality.
  */
-function admon_hide_toolbar( $show_admin_bar ) {
-	return ( current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) ? $show_admin_bar : false;
+function admon_load_plugin() {
+	// Load core functionality.
+	require_once ADMON_PLUGIN_DIR . 'includes/core.php';
+
+	// Load session functionality.
+	require_once ADMON_PLUGIN_DIR . 'includes/session.php';
+
+	// Load admin functionality.
+	if ( is_admin() ) {
+		require_once ADMON_PLUGIN_DIR . 'admin/settings.php';
+	}
 }
-add_filter( 'show_admin_bar', 'admon_hide_toolbar' );
+add_action( 'plugins_loaded', 'admon_load_plugin' );

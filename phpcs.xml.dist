@@ -1,19 +1,34 @@
 <?xml version="1.0"?>
-<ruleset name="WordPress Coding Standards">
-    <description>WordPress Coding Standards for admin-only plugin</description>
+<ruleset name="Admin Only Coding Standards">
+    <description>WordPress Coding Standards for Admin Only plugin</description>
 
-    <!-- What to scan -->
+    <!-- Use WordPress coding standards -->
+    <rule ref="WordPress">
+        <!-- Exclude some rules that are not needed -->
+        <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
+        <exclude name="WordPress.Files.FileName.NotHyphenatedLowercase"/>
+        <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
+    </rule>
+
+    <!-- Check all PHP files in the plugin directory -->
     <file>.</file>
 
-    <!-- Exclude directories -->
-    <exclude-pattern>vendor/</exclude-pattern>
-    <exclude-pattern>node_modules/</exclude-pattern>
+    <!-- Exclude vendor directory -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
 
-    <!-- Use WordPress Coding Standards -->
-    <rule ref="WordPress-Core">
-        <exclude name="Generic.WhiteSpace.DisallowTabIndent"/>
-        <exclude name="WordPress.WP.I18n"/>
-    </rule>
-    <rule ref="WordPress-Docs"/>
-    <rule ref="WordPress-Extra"/>
+    <!-- Exclude node_modules directory -->
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+
+    <!-- Exclude .git directory -->
+    <exclude-pattern>*/.git/*</exclude-pattern>
+
+    <!-- Show progress and sniff codes in reports -->
+    <arg value="ps"/>
+    <arg name="colors"/>
+
+    <!-- Set extensions to check -->
+    <arg name="extensions" value="php"/>
+
+    <!-- Set encoding -->
+    <arg name="encoding" value="utf-8"/>
 </ruleset>
