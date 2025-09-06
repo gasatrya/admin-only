@@ -27,7 +27,10 @@
       "composer.lock",
       "LICENSE",
       "vendor/",
-      ".vscode/"
+      ".vscode/",
+      "CLAUDE.md",
+      ".github/",
+      "phpcs.xml.dist"
     ]
   },
   "scripts": {
