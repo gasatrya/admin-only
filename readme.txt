@@ -1,43 +1,59 @@
 === Admin Only Dashboard ===
 Contributors: gasatrya
-Tags: restrict, dashboard, administration, membership, roles
-Requires at least: 3.3
-Tested up to: 6.5
-Stable tag: 1.0.0
-Requires PHP: 7.0
+Tags: restrict, dashboard, administration, membership, roles, security, session, timeout, access control
+Requires at least: 5.0
+Tested up to: 6.8
+Stable tag: 1.1.0
+Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-It allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site.
+Advanced access control for WordPress dashboard with session management and user whitelisting capabilities.
 
 == Description ==
 
-Introducing the **Admin Only Dashboard** WordPress plugin - the simple yet powerful solution for securing your website's backend. This feature-rich plugin offers the following capabilities:
+Introducing the **Admin Only Dashboard** WordPress plugin - the comprehensive security solution for controlling access to your WordPress dashboard. 
 
-* **No Configuration Needed**: Enjoy a hassle-free setup process. The plugin works out of the box, requiring no additional configuration.
-* **Administrator-Only Access**: Ensure that only administrators have access to the dashboard area. This prevents unauthorized users from making changes to your website.
-* **Redirect Non-Administrators**: Automatically redirect non-administrator users to the home page, providing a seamless user experience while maintaining security.
-* **Disable Admin Toolbars**: The plugin automatically disables admin toolbars for non-administrator users, further enhancing security and preventing unauthorized actions.
-* **Enhanced Security**: Protect your website from potential security threats by restricting access to sensitive areas and ensuring that only authorized personnel can manage your site.
-* **Developer-Friendly Filters**: Developers can easily customize the plugin's behavior by using filters. For example, you can modify the allowed roles to include administrators and editors, or change the redirection page to a custom URL.
+**Who Benefits from This Plugin:**
+- **Website Owners**: Protect your WordPress dashboard from unauthorized access while allowing trusted team members
+- **Agencies & Developers**: Grant temporary dashboard access to clients or contractors without full admin privileges
+- **Security-Conscious Users**: Automatically log out users after periods of inactivity to prevent unauthorized access
+- **Content Teams**: Allow editors and authors to work while maintaining overall dashboard security
+
+**Key Benefits:**
+- Enhanced security with granular access control
+- Reduced risk of unauthorized dashboard access
+- Flexible user management without role changes
+- Automated session management for better security
+- Professional user experience with custom redirects
+
+This feature-rich plugin offers the following capabilities:
+
+* **Zero Configuration Default**: Works out of the box with sensible defaults - only administrators can access the dashboard
+* **Flexible Access Control**: Grant dashboard access to specific non-admin users via username whitelist while maintaining administrator-only default
+* **Session Security Management**: Configure automatic logout after periods of inactivity (1-24 hours or custom duration)
+* **Administrator Session Control**: Option to apply session timeout to administrators for enhanced security
+* **Custom Redirect URLs**: Redirect blocked users to custom pages instead of the homepage for better user experience
+* **Remember Me Override**: Force session timeout even when users check "Remember Me" for maximum security
+* **Redirect Non-Administrators**: Automatically redirect non-administrator users with customizable destination
+* **Disable Admin Toolbars**: Hide admin toolbars for non-administrator users to prevent unauthorized actions
+* **Enhanced Security**: Protect sensitive dashboard areas with multiple layers of access control
+* **Developer-Friendly**: Extensive filters and hooks for complete customization of plugin behavior
 
 == Changelog ==
+
+= 1.1.0 =
+* Added session timeout management with configurable intervals (1-24 hours)
+* Added custom timeout duration option (1-168 hours)
+* Added username whitelist for granting dashboard access to specific non-admin users
+* Added custom redirect URL for blocked users
+* Added option to apply session timeout to administrators
+* Added "Remember Me" override functionality
+* Enhanced security with proper input sanitization and validation
+* Improved user interface with comprehensive settings page
+* Added reset to defaults functionality
+* Updated to follow WordPress coding standards
 
 = 1.0.0 =
 * First version
 
-== Filters ==
-
-**Filter capability**
-
-`function admon_capability() {
- 	return 'unfiltered_html'; // Allow administrator and editor to access dashboard
-}
-add_filter( 'admon_access_capability', 'admon_capability' );`
-
-**Filter redirection page**
-
-`function admon_redirect() {
- 	return home_url( '/user-account/' );
-}
-add_filter( 'admon_redirect_page', 'admon_redirect' );`
