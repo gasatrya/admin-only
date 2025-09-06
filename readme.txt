@@ -40,6 +40,10 @@ This feature-rich plugin offers the following capabilities:
 * **Enhanced Security**: Protect sensitive dashboard areas with multiple layers of access control
 * **Developer-Friendly**: Extensive filters and hooks for complete customization of plugin behavior
 
+== Screenshots ==
+
+1. Plugin settings
+
 == Changelog ==
 
 = 1.1.0 =
