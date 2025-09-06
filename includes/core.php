@@ -96,6 +96,40 @@ function admon_user_has_access() {
 }
 
 /**
+ * Validate if URL is within the same WordPress site
+ *
+ * @param string $url URL to validate.
+ * @return string|false Sanitized URL if valid, false otherwise.
+ */
+function admon_validate_same_site_url( $url ) {
+	if ( empty( $url ) ) {
+		return false;
+	}
+
+	// Parse the URL to get components
+	$parsed_url = wp_parse_url( $url );
+
+	// If it's a relative URL, it's always internal
+	if ( ! isset( $parsed_url['host'] ) ) {
+		return esc_url_raw( $url );
+	}
+
+	// Get current site's domain
+	$site_url = wp_parse_url( home_url() );
+
+	// Compare domains - allow same host or subdomains of same base domain
+	if ( isset( $parsed_url['host'] ) && isset( $site_url['host'] ) ) {
+		// Check if hosts match exactly or if it's a subdomain of the same base
+		if ( $parsed_url['host'] === $site_url['host'] ||
+			substr( $parsed_url['host'], -strlen( $site_url['host'] ) ) === $site_url['host'] ) {
+			return esc_url_raw( $url );
+		}
+	}
+
+	return false;
+}
+
+/**
  * Get redirect URL for blocked users
  *
  * @return string Redirect URL
@@ -106,7 +140,7 @@ function admon_get_redirect_url() {
 
 	// Use custom redirect URL if set and valid.
 	if ( ! empty( $settings['custom_redirect'] ) ) {
-		$custom_url = esc_url_raw( $settings['custom_redirect'] );
+		$custom_url = admon_validate_same_site_url( $settings['custom_redirect'] );
 		if ( ! empty( $custom_url ) ) {
 			$redirect_url = $custom_url;
 		}

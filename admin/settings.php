@@ -128,8 +128,24 @@ function admon_sanitize_settings( $input ) {
 
 	// Sanitize custom redirect.
 	if ( isset( $input['custom_redirect'] ) ) {
-		$url                          = esc_url_raw( trim( $input['custom_redirect'] ) );
-		$sanitized['custom_redirect'] = ! empty( $url ) ? $url : '';
+		$url = trim( $input['custom_redirect'] );
+		if ( ! empty( $url ) ) {
+			// Validate that URL is within the same WordPress installation
+			$sanitized_url                = admon_validate_same_site_url( $url );
+			$sanitized['custom_redirect'] = ! empty( $sanitized_url ) ? $sanitized_url : '';
+
+			// Show error if URL is external
+			if ( empty( $sanitized_url ) && ! empty( $url ) ) {
+				add_settings_error(
+					'admin_only_settings',
+					'invalid_redirect_url',
+					__( 'Custom redirect URL must be within this WordPress site.', 'admin-only' ),
+					'error'
+				);
+			}
+		} else {
+			$sanitized['custom_redirect'] = '';
+		}
 	}
 
 	return $sanitized;
@@ -237,8 +253,7 @@ function admon_settings_page_callback() {
 		return;
 	}
 
-	// Show error/update messages.
-	settings_errors( 'admin_only_settings' );
+	// Error/update messages are automatically displayed by WordPress
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
