@@ -15,12 +15,14 @@ Advanced access control for WordPress dashboard with session management and user
 Introducing the **Admin Only Dashboard** WordPress plugin - the comprehensive security solution for controlling access to your WordPress dashboard. 
 
 **Who Benefits from This Plugin:**
+
 * **Website Owners**: Protect your WordPress dashboard from unauthorized access while allowing trusted team members
 * **Agencies & Developers**: Grant temporary dashboard access to clients or contractors without full admin privileges
 * **Security-Conscious Users**: Automatically log out users after periods of inactivity to prevent unauthorized access
 * **Content Teams**: Allow editors and authors to work while maintaining overall dashboard security
 
 **Key Benefits:**
+
 * Enhanced security with granular access control
 * Reduced risk of unauthorized dashboard access
 * Flexible user management without role changes
