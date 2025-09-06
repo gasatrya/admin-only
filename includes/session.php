@@ -35,9 +35,27 @@ function admon_set_session_expiration( $expiration, $user_id, $remember ) {
 		return $expiration;
 	}
 
-	// Convert hours to seconds.
-	$timeout_hours   = floatval( $settings['session_timeout'] );
-	$timeout_seconds = round( $timeout_hours * HOUR_IN_SECONDS );
+	// Handle custom timeout vs predefined options.
+	if ( 'custom' === $settings['session_timeout'] ) {
+		$timeout_hours = absint( $settings['custom_timeout_hours'] ?? 0 );
+	} else {
+		$timeout_hours = absint( $settings['session_timeout'] );
+	}
+
+	// Validate timeout hours (1 hour minimum, 168 hours/1 week maximum).
+	if ( $timeout_hours < 1 || $timeout_hours > 168 ) {
+		return $expiration; // Fall back to default if invalid.
+	}
+
+	// Check if we should respect "Remember Me" checkbox.
+	$override_remember_me = ! empty( $settings['override_remember_me'] );
+	if ( ! $override_remember_me && $remember ) {
+		// If "Remember Me" is checked and we're not overriding it,
+		// let WordPress handle the extended session (typically 2 weeks).
+		return $expiration;
+	}
+
+	$timeout_seconds = $timeout_hours * HOUR_IN_SECONDS;
 
 	// Return the custom timeout.
 	return $timeout_seconds;
