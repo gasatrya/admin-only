@@ -36,8 +36,8 @@ function admon_set_session_expiration( $expiration, $user_id, $remember ) {
 	}
 
 	// Convert hours to seconds.
-	$timeout_hours   = absint( $settings['session_timeout'] );
-	$timeout_seconds = $timeout_hours * HOUR_IN_SECONDS;
+	$timeout_hours   = floatval( $settings['session_timeout'] );
+	$timeout_seconds = round( $timeout_hours * HOUR_IN_SECONDS );
 
 	// Return the custom timeout.
 	return $timeout_seconds;

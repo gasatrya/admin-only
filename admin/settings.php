@@ -165,13 +165,13 @@ function admon_session_timeout_callback() {
 	$settings        = get_option( 'admin_only_settings' );
 	$current_timeout = $settings['session_timeout'] ?? '';
 	$timeout_options = array(
-		'' => __( 'Default WordPress', 'admin-only' ),
-		1  => __( '1 hour', 'admin-only' ),
-		2  => __( '2 hours', 'admin-only' ),
-		4  => __( '4 hours', 'admin-only' ),
-		8  => __( '8 hours', 'admin-only' ),
-		12 => __( '12 hours', 'admin-only' ),
-		24 => __( '24 hours', 'admin-only' ),
+		''  => __( 'Default WordPress', 'admin-only' ),
+		1   => __( '1 hour', 'admin-only' ),
+		2   => __( '2 hours', 'admin-only' ),
+		4   => __( '4 hours', 'admin-only' ),
+		8   => __( '8 hours', 'admin-only' ),
+		12  => __( '12 hours', 'admin-only' ),
+		24  => __( '24 hours', 'admin-only' ),
 	);
 
 	?>
