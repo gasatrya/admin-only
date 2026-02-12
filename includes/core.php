@@ -121,7 +121,7 @@ function admon_validate_same_site_url( $url ) {
 	if ( isset( $parsed_url['host'] ) && isset( $site_url['host'] ) ) {
 		// Check if hosts match exactly or if it's a subdomain of the same base
 		if ( $parsed_url['host'] === $site_url['host'] ||
-			substr( $parsed_url['host'], -strlen( $site_url['host'] ) ) === $site_url['host'] ) {
+			substr( $parsed_url['host'], -( strlen( $site_url['host'] ) + 1 ) ) === '.' . $site_url['host'] ) {
 			return esc_url_raw( $url );
 		}
 	}

@@ -324,13 +324,16 @@ function admon_custom_redirect_callback() {
  * Add settings page to admin menu
  */
 function admon_add_settings_page() {
-	add_options_page(
+	$hook_suffix = add_options_page(
 		__( 'Access Control Settings', 'admin-only' ),
 		__( 'Admin Only Dashboard', 'admin-only' ),
 		'manage_options',
 		'admin-only-settings',
 		'admon_settings_page_callback'
 	);
+
+	// Add help tabs.
+	add_action( 'load-' . $hook_suffix, 'admon_add_help_tabs' );
 }
 add_action( 'admin_menu', 'admon_add_settings_page' );
 
@@ -347,22 +350,53 @@ function admon_settings_page_callback() {
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html__( 'Admin Only Dashboard - Access Control', 'admin-only' ); ?></h1>
-		<form action="options.php" method="post">
-			<?php
-			// Output security fields.
-			settings_fields( 'admin_only_settings' );
-			// Output settings sections.
-			do_settings_sections( 'admin_only_settings' );
-			// Output save button.
-			submit_button( __( 'Save Settings', 'admin-only' ) );
-			?>
-		</form>
 
-		<form method="post" style="margin-top: 20px;">
-			<?php wp_nonce_field( 'admon_reset_settings', 'admon_reset_nonce' ); ?>
-			<input type="hidden" name="admon_reset_action" value="reset" />
-			<?php submit_button( __( 'Reset All Settings', 'admin-only' ), 'delete', 'admon_reset_submit', false ); ?>
-		</form>
+		<div id="poststuff">
+			<div id="post-body" class="metabox-holder columns-2">
+				<!-- Main Content -->
+				<div id="post-body-content">
+					<form action="options.php" method="post">
+						<?php
+						// Output security fields.
+						settings_fields( 'admin_only_settings' );
+						// Output settings sections.
+						do_settings_sections( 'admin_only_settings' );
+						// Output save button.
+						submit_button( __( 'Save Settings', 'admin-only' ) );
+						?>
+					</form>
+
+					<form method="post" style="margin-top: 20px;">
+						<?php wp_nonce_field( 'admon_reset_settings', 'admon_reset_nonce' ); ?>
+						<input type="hidden" name="admon_reset_action" value="reset" />
+						<?php submit_button( __( 'Reset All Settings', 'admin-only' ), 'delete', 'admon_reset_submit', false ); ?>
+					</form>
+				</div>
+
+				<!-- Sidebar -->
+				<div id="postbox-container-1" class="postbox-container">
+					<div class="postbox">
+						<h2 class="hndle ui-sortable-handle"><span><?php esc_html_e( 'Is Your Site Leaking Revenue?', 'admin-only' ); ?></span></h2>
+						<div class="inside">
+							<p><?php esc_html_e( 'Take the 2-minute audit to identify the hidden conversion leaks costing you customers.', 'admin-only' ); ?></p>
+							<p>
+								<a href="https://www.ctaflow.com/tools/website-health-audit/" target="_blank" class="button button-primary" style="width: 100%; text-align: center;">
+									<?php esc_html_e( 'Get Your Free Audit', 'admin-only' ); ?>
+								</a>
+							</p>
+							<hr>
+							<p>
+								<span class="dashicons dashicons-star-filled" style="color: #ffb900;"></span>
+								<a href="https://wordpress.org/support/plugin/admin-only-dashboard/reviews/#new-post" target="_blank">
+									<?php esc_html_e( 'Rate this plugin', 'admin-only' ); ?>
+								</a>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<br class="clear">
+		</div>
 	</div>
 	<?php
 }
@@ -402,3 +436,65 @@ function admon_handle_reset_settings() {
 	}
 }
 add_action( 'admin_init', 'admon_handle_reset_settings' );
+
+/**
+ * Add contextual help tabs
+ */
+function admon_add_help_tabs() {
+	$screen = get_current_screen();
+
+	if ( ! $screen ) {
+		return;
+	}
+
+	// Overview Tab.
+	$screen->add_help_tab(
+		array(
+			'id'      => 'admon_overview',
+			'title'   => __( 'Overview', 'admin-only' ),
+			'content' => '<p>' . __( '<strong>Admin Only Dashboard</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities.', 'admin-only' ) . '</p>',
+		)
+	);
+
+	// Access Control Tab.
+	$screen->add_help_tab(
+		array(
+			'id'      => 'admon_access_control',
+			'title'   => __( 'Access Control', 'admin-only' ),
+			'content' => '<p>' . __( '<strong>Allowed Users:</strong> Enter a comma-separated list of usernames (e.g., <code>john_doe, jane_doe</code>) to allow specific non-admin users to access the dashboard.', 'admin-only' ) . '</p>' .
+						'<p>' . __( '<strong>Custom Redirect URL:</strong> By default, blocked users are redirected to the homepage. You can enter a custom URL here (must be within the same site) to redirect them to a specific page, such as a custom login or error page.', 'admin-only' ) . '</p>',
+		)
+	);
+
+	// Session Management Tab.
+	$screen->add_help_tab(
+		array(
+			'id'      => 'admon_session',
+			'title'   => __( 'Session Management', 'admin-only' ),
+			'content' => '<p>' . __( '<strong>Auto-Logout:</strong> Automatically log users out after a specific period of inactivity. This improves security, especially for shared computers.', 'admin-only' ) . '</p>' .
+						'<p>' . __( '<strong>Include Administrators:</strong> By default, administrators are exempt from auto-logout. Check this option to enforce the timeout for admins as well.', 'admin-only' ) . '</p>' .
+						'<p>' . __( '<strong>Override "Remember Me":</strong> If checked, the session timeout will apply even if the user checked "Remember Me" during login. Otherwise, "Remember Me" sessions will last for 14 days.', 'admin-only' ) . '</p>',
+		)
+	);
+
+	// Troubleshooting Tab.
+	$screen->add_help_tab(
+		array(
+			'id'      => 'admon_troubleshooting',
+			'title'   => __( 'Troubleshooting', 'admin-only' ),
+			'content' => '<p>' . __( '<strong>Locked Out?</strong> If you accidentally lock yourself out, you can regain access by:', 'admin-only' ) . '</p>' .
+						'<ol>' .
+						'<li>' . __( 'Accessing your site files via FTP or Hosting File Manager.', 'admin-only' ) . '</li>' .
+						'<li>' . __( 'Navigating to <code>/wp-content/plugins/</code>.', 'admin-only' ) . '</li>' .
+						'<li>' . __( 'Renaming the <code>admin-only</code> folder to <code>admin-only-disabled</code>.', 'admin-only' ) . '</li>' .
+						'<li>' . __( 'This will automatically deactivate the plugin, allowing you to log in.', 'admin-only' ) . '</li>' .
+						'</ol>',
+		)
+	);
+
+	// Help Sidebar.
+	$screen->set_help_sidebar(
+		'<p><strong>' . __( 'For more information:', 'admin-only' ) . '</strong></p>' .
+		'<p><a href="https://wordpress.org/plugins/admin-only/" target="_blank">' . __( 'Plugin Page', 'admin-only' ) . '</a></p>'
+	);
+}

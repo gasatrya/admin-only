@@ -2,8 +2,8 @@
 Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
-Tested up to: 6.8
-Stable tag: 1.1.0
+Tested up to: 6.9
+Stable tag: 1.1.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -41,11 +41,19 @@ Remove dashboard access to non-admin users and easily control who can access you
 
 Protect your site, empower your workflow, and deliver a professional experience—all with one lightweight plugin.
 
+
+[Read more detail](https://www.ctaflow.com/plugins/admin-only-dashboard/)
+
 == Screenshots ==
 
 1. Plugin settings
 
 == Changelog ==
+
+= 1.1.1 =
+* Security Fix: Patched Open Redirect vulnerability in URL validation logic.
+* Improved: Stricter validation for custom redirect URLs.
+* Improved: Added Contextual Help tabs in settings page.
 
 = 1.1.0 =
 * Added session timeout management with configurable intervals (1-24 hours)
