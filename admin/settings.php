@@ -346,10 +346,11 @@ function admon_settings_page_callback() {
 		return;
 	}
 
-	// Error/update messages are automatically displayed by WordPress
 	?>
 	<div class="wrap">
 		<h1><?php echo esc_html__( 'Admin Only Dashboard - Access Control', 'admin-only' ); ?></h1>
+
+		<?php settings_errors(); ?>
 
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-2">
