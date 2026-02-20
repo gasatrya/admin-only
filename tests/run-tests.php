@@ -16,6 +16,9 @@ echo "Running tests...\n";
 foreach ( $methods as $method ) {
     if ( strpos( $method, 'test_' ) === 0 ) {
         try {
+            if ( method_exists( $testClass, 'setUp' ) ) {
+                $testClass->setUp();
+            }
             $testClass->$method();
             echo "✔ $method passed\n";
             $passCount++;

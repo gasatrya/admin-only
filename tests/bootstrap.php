@@ -42,8 +42,13 @@ if ( ! function_exists( 'wp_parse_url' ) ) {
 }
 
 if ( ! function_exists( 'esc_url_raw' ) ) {
+    /**
+     * Mock for esc_url_raw.
+     * Note: This is a no-op implementation for unit testing purposes.
+     * It does not perform actual URL sanitization.
+     */
     function esc_url_raw( $url ) {
-        return $url; // Minimal mock
+        return $url;
     }
 }
 

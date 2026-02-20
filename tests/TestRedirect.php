@@ -4,7 +4,7 @@
  */
 
 class TestRedirect {
-    public function setup() {
+    public function setUp() {
         global $wp_options, $wp_filters, $wp_home_url;
         $wp_options = [];
         $wp_filters = [];
@@ -12,13 +12,11 @@ class TestRedirect {
     }
 
     public function test_get_redirect_url_default() {
-        $this->setup();
         $url = admon_get_redirect_url();
         $this->assertEquals( 'https://example.com/', $url, 'Default redirect URL should be home URL' );
     }
 
     public function test_get_redirect_url_custom_valid() {
-        $this->setup();
         global $wp_options;
         $wp_options['admin_only_settings'] = [
             'custom_redirect' => 'https://example.com/blocked'
@@ -29,7 +27,6 @@ class TestRedirect {
     }
 
     public function test_get_redirect_url_custom_invalid_external() {
-        $this->setup();
         global $wp_options;
         $wp_options['admin_only_settings'] = [
             'custom_redirect' => 'https://malicious.com/blocked'
@@ -40,7 +37,6 @@ class TestRedirect {
     }
 
     public function test_get_redirect_url_custom_relative() {
-        $this->setup();
         global $wp_options;
         $wp_options['admin_only_settings'] = [
             'custom_redirect' => '/blocked'
@@ -51,25 +47,23 @@ class TestRedirect {
     }
 
     public function test_get_redirect_url_filtered() {
-        $this->setup();
         global $wp_filters;
+        // The filter allows bypassing same-site validation intentionally.
         $wp_filters['admon_redirect_page'] = function( $url ) {
             return 'https://filtered.com';
         };
 
         $url = admon_get_redirect_url();
-        $this->assertEquals( 'https://filtered.com', $url, 'Redirect URL should be filterable' );
+        $this->assertEquals( 'https://filtered.com', $url, 'Redirect URL should be filterable (bypasses validation)' );
     }
 
     public function test_validate_same_site_url_subdomain() {
-        $this->setup();
         $url = 'https://sub.example.com/blocked';
         $result = admon_validate_same_site_url( $url );
         $this->assertEquals( $url, $result, 'Subdomains of the same base domain should be allowed' );
     }
 
     public function test_validate_same_site_url_different_domain() {
-        $this->setup();
         $url = 'https://another-domain.com/blocked';
         $result = admon_validate_same_site_url( $url );
         $this->assertFalse( $result, 'Different domains should be disallowed' );
