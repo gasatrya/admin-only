@@ -132,6 +132,9 @@ function admon_validate_same_site_url( $url ) {
 /**
  * Get redirect URL for blocked users
  *
+ * Note: The 'admon_redirect_page' filter allows bypassing the same-site validation
+ * performed on the 'custom_redirect' setting.
+ *
  * @return string Redirect URL
  */
 function admon_get_redirect_url() {
