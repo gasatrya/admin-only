@@ -1,0 +1,9 @@
+.git/
+.github/
+.gitignore
+.distignore
+AGENTS.md
+composer.json
+composer.lock
+phpcs.xml.dist
+vendor/
