@@ -17,6 +17,4 @@ jobs:
         with:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
-          # The slug on WordPress.org is often the repository name.
-          # If the slug is different, uncomment and set it here:
-          # SLUG: admin-only
+          SLUG: admin-only-dashboard

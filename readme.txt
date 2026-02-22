@@ -3,7 +3,7 @@ Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.2.0
+Stable tag: 1.2.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,10 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 1. Plugin settings
 
 == Changelog ==
+
+= 1.2.1 =
+* Improved: Updated deployment workflow to include plugin assets.
+* Improved: Updated plugin slug for WordPress.org SVN consistency.
 
 = 1.2.0 =
 * Performance: Optimized access checks with static caching (memoization) to reduce redundant processing.
