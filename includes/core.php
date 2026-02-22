@@ -75,6 +75,12 @@ add_filter( 'show_admin_bar', 'admon_hide_toolbar' );
  * @return bool True if user has access, false otherwise
  */
 function admon_user_has_access() {
+	static $has_access = null;
+
+	if ( null !== $has_access ) {
+		return $has_access;
+	}
+
 	$has_access = current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) );
 
 	// Apply whitelist logic if settings exist.
@@ -92,7 +98,9 @@ function admon_user_has_access() {
 		}
 	}
 
-	return apply_filters( 'admon_user_has_access', $has_access );
+	$has_access = apply_filters( 'admon_user_has_access', $has_access );
+
+	return $has_access;
 }
 
 /**
