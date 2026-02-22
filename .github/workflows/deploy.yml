@@ -14,7 +14,7 @@ jobs:
 
       - name: WordPress.org Plugin Deploy
         uses: 10up/action-wordpress-plugin-deploy@stable
-        with:
+        env:
           SVN_USERNAME: ${{ secrets.SVN_USERNAME }}
           SVN_PASSWORD: ${{ secrets.SVN_PASSWORD }}
           SLUG: admin-only-dashboard
