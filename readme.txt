@@ -3,7 +3,7 @@ Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.2.2
+Stable tag: 1.2.5
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,17 +50,12 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 
 == Changelog ==
 
-= 1.2.2 =
-* Fix: Corrected GitHub Action workflow configuration.
-
-= 1.2.1 =
-* Improved: Updated deployment workflow to include plugin assets.
-* Improved: Updated plugin slug for WordPress.org SVN consistency.
-
-= 1.2.0 =
+= 1.2.5 =
 * Performance: Optimized access checks with static caching (memoization) to reduce redundant processing.
 * Fix: Ensured settings errors and success messages are correctly displayed on the settings page.
 * Improved: Better UI feedback when saving or resetting settings.
+* Improved: Added GitHub Actions automated deployment for WordPress.org SVN.
+* Assets: Added new plugin banners and icons for the WordPress.org repository.
 
 = 1.1.1 =
 * Security Fix: Patched Open Redirect vulnerability in URL validation logic.

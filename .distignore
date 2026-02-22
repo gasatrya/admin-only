@@ -7,3 +7,4 @@ composer.json
 composer.lock
 phpcs.xml.dist
 vendor/
+.wordpress-org/
