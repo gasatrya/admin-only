@@ -2,7 +2,25 @@
 <ruleset name="Admin Only Coding Standards">
     <description>WordPress Coding Standards for Admin Only plugin</description>
 
-    <!-- Use WordPress coding standards -->
+    <!-- How to scan -->
+    <!-- Usage instructions: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage -->
+    <arg value="ps"/>
+    <arg name="colors"/>
+    <arg name="basepath" value="."/>
+    <arg name="parallel" value="20"/>
+    <arg name="extensions" value="php"/>
+    <arg name="cache" value=".phpcs-cache"/>
+
+    <!-- Check all PHP files in the plugin directory -->
+    <file>.</file>
+
+    <!-- Exclude directories -->
+    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <exclude-pattern>*/.git/*</exclude-pattern>
+
+    <!-- Rules: WordPress Coding Standards -->
+    <!-- https://github.com/WordPress/WordPress-Coding-Standards -->
     <rule ref="WordPress">
         <!-- Exclude some rules that are not needed -->
         <exclude name="WordPress.Files.FileName.InvalidClassFileName"/>
@@ -10,25 +28,28 @@
         <exclude name="Squiz.Commenting.InlineComment.InvalidEndChar"/>
     </rule>
 
-    <!-- Check all PHP files in the plugin directory -->
-    <file>.</file>
+    <!-- Rules: PHP Compatibility -->
+    <!-- https://github.com/PHPCompatibility/PHPCompatibilityWP -->
+    <rule ref="PHPCompatibilityWP"/>
 
-    <!-- Exclude vendor directory -->
-    <exclude-pattern>*/vendor/*</exclude-pattern>
+    <!-- Project Config -->
+    <config name="minimum_supported_wp_version" value="6.8.2"/>
+    <config name="testVersion" value="8.2-"/>
 
-    <!-- Exclude node_modules directory -->
-    <exclude-pattern>*/node_modules/*</exclude-pattern>
+    <rule ref="WordPress.WP.I18n">
+        <properties>
+            <property name="text_domain" type="array">
+                <element value="admin-only"/>
+            </property>
+        </properties>
+    </rule>
 
-    <!-- Exclude .git directory -->
-    <exclude-pattern>*/.git/*</exclude-pattern>
+    <rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+        <properties>
+            <property name="prefixes" type="array">
+                <element value="admon"/>
+            </property>
+        </properties>
+    </rule>
 
-    <!-- Show progress and sniff codes in reports -->
-    <arg value="ps"/>
-    <arg name="colors"/>
-
-    <!-- Set extensions to check -->
-    <arg name="extensions" value="php"/>
-
-    <!-- Set encoding -->
-    <arg name="encoding" value="utf-8"/>
 </ruleset>
