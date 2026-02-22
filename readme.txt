@@ -3,7 +3,7 @@ Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.1.1
+Stable tag: 1.2.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,11 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 
 == Changelog ==
 
+= 1.2.0 =
+* Performance: Optimized access checks with static caching (memoization) to reduce redundant processing.
+* Fix: Ensured settings errors and success messages are correctly displayed on the settings page.
+* Improved: Better UI feedback when saving or resetting settings.
+
 = 1.1.1 =
 * Security Fix: Patched Open Redirect vulnerability in URL validation logic.
 * Improved: Stricter validation for custom redirect URLs.
@@ -67,8 +72,6 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 * Added reset to defaults functionality
 * Updated to follow WordPress coding standards
 
-= 1.0.0 =
-* First version
 = 1.0.0 =
 * First version
 
