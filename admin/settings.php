@@ -23,14 +23,7 @@ function admon_settings_init() {
 		'admin_only_settings',
 		array(
 			'sanitize_callback' => 'admon_sanitize_settings',
-			'default' => array(
-				'session_timeout' => '',
-				'custom_timeout_hours' => '',
-				'apply_to_admins' => 0,
-				'override_remember_me' => 0,
-				'allowed_users' => '',
-				'custom_redirect' => '',
-			),
+			'default'           => admon_get_default_settings(),
 		)
 	);
 
@@ -215,7 +208,7 @@ function admon_session_section_callback() {
  * Session timeout field callback
  */
 function admon_session_timeout_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = admon_get_settings();
 	$current_timeout = $settings['session_timeout'] ?? '';
 	$custom_hours = $settings['custom_timeout_hours'] ?? '';
 	$timeout_options = array(
@@ -263,7 +256,7 @@ function admon_session_timeout_callback() {
  * Apply to admins field callback
  */
 function admon_apply_to_admins_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = admon_get_settings();
 	$apply_to_admins = $settings['apply_to_admins'] ?? 0;
 	?>
 	<label>
@@ -277,7 +270,7 @@ function admon_apply_to_admins_callback() {
  * Override Remember Me field callback
  */
 function admon_override_remember_me_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings             = admon_get_settings();
 	$override_remember_me = $settings['override_remember_me'] ?? 0;
 	?>
 	<label>
@@ -294,7 +287,7 @@ function admon_override_remember_me_callback() {
  * Allowed users field callback
  */
 function admon_allowed_users_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings      = admon_get_settings();
 	$allowed_users = $settings['allowed_users'] ?? '';
 	?>
 	<input type="text" name="admin_only_settings[allowed_users]" value="<?php echo esc_attr( $allowed_users ); ?>"
@@ -309,7 +302,7 @@ function admon_allowed_users_callback() {
  * Custom redirect field callback
  */
 function admon_custom_redirect_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = admon_get_settings();
 	$custom_redirect = $settings['custom_redirect'] ?? '';
 	?>
 	<input type="url" name="admin_only_settings[custom_redirect]" value="<?php echo esc_attr( $custom_redirect ); ?>"
@@ -420,17 +413,8 @@ function admon_handle_reset_settings() {
 	}
 
 	if ( isset( $_POST['admon_reset_action'] ) && 'reset' === $_POST['admon_reset_action'] ) {
-		// Reset to default settings
-		$default_settings = array(
-			'session_timeout' => '',
-			'custom_timeout_hours' => '',
-			'apply_to_admins' => 0,
-			'override_remember_me' => 0,
-			'allowed_users' => '',
-			'custom_redirect' => '',
-		);
-
-		update_option( 'admin_only_settings', $default_settings );
+		// Reset to default settings.
+		update_option( 'admin_only_settings', admon_get_default_settings() );
 
 		// Add success message
 		add_settings_error(

@@ -11,6 +11,38 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 /**
+ * Get default plugin settings.
+ *
+ * @return array Default settings.
+ */
+function admon_get_default_settings() {
+	return array(
+		'session_timeout'      => '',
+		'custom_timeout_hours' => '',
+		'apply_to_admins'      => 0,
+		'override_remember_me' => 0,
+		'allowed_users'        => '',
+		'custom_redirect'      => '',
+	);
+}
+
+/**
+ * Get plugin settings.
+ *
+ * @return array Plugin settings.
+ */
+function admon_get_settings() {
+	static $settings = null;
+
+	if ( null === $settings ) {
+		$settings = get_option( 'admin_only_settings', array() );
+		$settings = wp_parse_args( $settings, admon_get_default_settings() );
+	}
+
+	return $settings;
+}
+
+/**
  * Validate usernames in whitelist and return validation results.
  *
  * @param string $usernames Comma-separated usernames.
@@ -84,7 +116,7 @@ function admon_user_has_access() {
 	$has_access = current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) );
 
 	// Apply whitelist logic if settings exist.
-	$settings = get_option( 'admin_only_settings', array() );
+	$settings = admon_get_settings();
 	if ( ! empty( $settings['allowed_users'] ) ) {
 		$current_user  = wp_get_current_user();
 		$allowed_users = array_map( 'trim', explode( ',', $settings['allowed_users'] ) );
@@ -131,7 +163,7 @@ function admon_validate_same_site_url( $url ) {
  * @return string Redirect URL
  */
 function admon_get_redirect_url() {
-	$settings     = get_option( 'admin_only_settings', array() );
+	$settings     = admon_get_settings();
 	$redirect_url = home_url( '/' );
 
 	// Use custom redirect URL if set and valid.

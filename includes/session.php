@@ -19,7 +19,7 @@ if ( ! defined( 'ABSPATH' ) ) {
  * @return int Modified expiration time
  */
 function admon_set_session_expiration( $expiration, $user_id, $remember ) {
-	$settings = get_option( 'admin_only_settings', array() );
+	$settings = admon_get_settings();
 
 	// Check if session timeout is enabled.
 	if ( empty( $settings['session_timeout'] ) ) {
