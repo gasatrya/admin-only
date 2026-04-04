@@ -114,27 +114,15 @@ function admon_validate_same_site_url( $url ) {
 		return false;
 	}
 
-	// Parse the URL to get components
-	$parsed_url = wp_parse_url( $url );
+	// Use WordPress's built-in redirect validation to ensure the URL is safe.
+	$validated_url = wp_validate_redirect( $url, false );
 
-	// If it's a relative URL, it's always internal
-	if ( ! isset( $parsed_url['host'] ) ) {
-		return esc_url_raw( $url );
+	// If wp_validate_redirect returns false, it's not a safe internal/same-site URL.
+	if ( false === $validated_url ) {
+		return false;
 	}
 
-	// Get current site's domain
-	$site_url = wp_parse_url( home_url() );
-
-	// Compare domains - allow same host or subdomains of same base domain
-	if ( isset( $parsed_url['host'] ) && isset( $site_url['host'] ) ) {
-		// Check if hosts match exactly or if it's a subdomain of the same base
-		if ( $parsed_url['host'] === $site_url['host'] ||
-			substr( $parsed_url['host'], -( strlen( $site_url['host'] ) + 1 ) ) === '.' . $site_url['host'] ) {
-			return esc_url_raw( $url );
-		}
-	}
-
-	return false;
+	return esc_url_raw( $validated_url );
 }
 
 /**
