@@ -90,7 +90,7 @@ function admon_user_has_access() {
 		$allowed_users = array_map( 'trim', explode( ',', $settings['allowed_users'] ) );
 
 		// Always allow administrators.
-		if ( current_user_can( 'manage_options' ) ) {
+		if ( current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) {
 			$has_access = true;
 		} elseif ( in_array( $current_user->user_login, $allowed_users, true ) ) {
 			// Check if user is in whitelist.

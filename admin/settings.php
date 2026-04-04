@@ -327,7 +327,7 @@ function admon_add_settings_page() {
 	$hook_suffix = add_options_page(
 		__( 'Access Control Settings', 'admin-only' ),
 		__( 'Admin Only Dashboard', 'admin-only' ),
-		'manage_options',
+		apply_filters( 'admon_access_capability', 'manage_options' ),
 		'admin-only-settings',
 		'admon_settings_page_callback'
 	);
@@ -342,7 +342,7 @@ add_action( 'admin_menu', 'admon_add_settings_page' );
  */
 function admon_settings_page_callback() {
 	// Check user capabilities.
-	if ( ! current_user_can( 'manage_options' ) ) {
+	if ( ! current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) {
 		return;
 	}
 
@@ -410,7 +410,7 @@ function admon_handle_reset_settings() {
 		return;
 	}
 
-	if ( ! current_user_can( 'manage_options' ) ) {
+	if ( ! current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) {
 		return;
 	}
 
