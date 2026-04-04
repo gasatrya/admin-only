@@ -1,6 +1,6 @@
 # UserFlow - Disable Dashboard Access for Non-Admins
 
-[![WordPress Plugin](https://img.shields.io/wordpress/plugin/v/admin-only.svg)](https://wordpress.org/plugins/admin-only/)
+[![WordPress Plugin](https://img.shields.io/wordpress/plugin/v/admin-only-dashboard.svg)](https://wordpress.org/plugins/admin-only-dashboard/)
 [![License](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D7.4-8892bf.svg)](composer.json)
 
@@ -16,7 +16,7 @@
 - **"Remember Me" Override:** Enforce session timeouts even when users check the "Remember Me" box.
 - **Clean UI:** Simple, native-feeling settings page for easy configuration.
 
-## 🛠 Installation
+## Installation
 
 ### From WordPress.org
 1. Go to **Plugins > Add New** in your WordPress dashboard.
@@ -28,7 +28,7 @@
 2. Upload the `admin-only` folder to your `/wp-content/plugins/` directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
 
-## 💻 For Developers
+## For Developers
 
 UserFlow is built with extensibility in mind.
 
@@ -41,12 +41,12 @@ add_filter( 'admon_access_capability', function( $capability ) {
 } );
 ```
 
-## 📋 Requirements
+## Requirements
 
 - **WordPress:** 6.0 or higher (Tested up to 7.0)
 - **PHP:** 7.4 or higher
 
-## 📜 License
+## License
 
 This project is licensed under the GPLv2 or later License. See the [LICENSE](LICENSE) file for details.
 
