@@ -53,6 +53,7 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 = 1.2.6 =
 * Improved: Settings page formatting and code structure.
 * Improved: Updated settings labels for better clarity.
+* Added: `admon_access_capability` filter for developer customization of access rights.
 * Fix: Updated `make-pot` composer script for Windows compatibility.
 * Maintenance: Excluded `AGENTS.md` from the distribution package.
 
