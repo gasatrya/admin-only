@@ -3,7 +3,7 @@ Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
 Tested up to: 6.9
-Stable tag: 1.2.5
+Stable tag: 1.2.6
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,12 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 1. Plugin settings
 
 == Changelog ==
+
+= 1.2.6 =
+* Improved: Settings page formatting and code structure.
+* Improved: Updated settings labels for better clarity.
+* Fix: Updated `make-pot` composer script for Windows compatibility.
+* Maintenance: Excluded `AGENTS.md` from the distribution package.
 
 = 1.2.5 =
 * Performance: Optimized access checks with static caching (memoization) to reduce redundant processing.

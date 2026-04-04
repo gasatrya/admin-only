@@ -14,7 +14,8 @@
     "wp-coding-standards/wpcs": "3.2.0",
     "squizlabs/php_codesniffer": "^3.13",
     "phpcompatibility/php-compatibility": "^9.3",
-    "phpcompatibility/phpcompatibility-wp": "^2.1"
+    "phpcompatibility/phpcompatibility-wp": "^2.1",
+    "wp-cli/i18n-command": "^2.7"
   },
   "config": {
     "allow-plugins": {
@@ -31,6 +32,7 @@
       "vendor/",
       ".vscode/",
       "CLAUDE.md",
+      "AGENTS.md",
       ".github/",
       "phpcs.xml.dist"
     ]
@@ -38,6 +40,7 @@
   "scripts": {
     "zip": "composer archive --format=zip --file admin-only",
     "phpcs": "phpcs",
-    "phpcbf": "phpcbf"
+    "phpcbf": "phpcbf",
+    "make-pot": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot . languages/admin-only.pot"
   }
 }
