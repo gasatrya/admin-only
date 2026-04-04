@@ -25,6 +25,8 @@
   "archive": {
     "exclude": [
       ".gitignore",
+      ".distignore",
+      ".phpcs-cache",
       "README.md",
       "composer.json",
       "composer.lock",

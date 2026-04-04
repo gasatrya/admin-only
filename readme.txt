@@ -52,6 +52,7 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 
 = 1.3.0 =
 * Rebranding: Formally renamed the plugin to **UserFlow**.
+* Refactor: Moved inline JavaScript to an external file for better security and maintainability.
 * Improved: Settings page formatting and code structure.
 * Improved: Updated settings labels for better clarity.
 * Improved: Use `wp_validate_redirect` for more robust same-site URL validation.
