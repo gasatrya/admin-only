@@ -4,14 +4,14 @@
  *
  * @package           Admin Only Dashboard
  * @author            Ga Satrya
- * @copyright         2023 - 2025 Ga Satrya
+ * @copyright         2023 - 2026 Ga Satrya
  * @license           GPL-2.0-or-later
  *
  * @wordpress-plugin
  * Plugin Name:       UserFlow
  * Plugin URI:        https://wordpress.org/plugins/admin-only/
  * Description:       UserFlow: Only administrators can access the WordPress dashboard by default. Easily allow specific users to log in via a simple whitelist. Quick and easy setup.
- * Version:           1.2.6
+ * Version:           1.3.0
  * Requires at least: 6.5
  * Requires PHP:      7.0
  * Author:            Ga Satrya

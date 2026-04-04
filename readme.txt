@@ -2,8 +2,8 @@
 Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
-Tested up to: 6.9
-Stable tag: 1.2.6
+Tested up to: 7.0
+Stable tag: 1.3.0
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,7 +50,8 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 
 == Changelog ==
 
-= 1.2.6 =
+= 1.3.0 =
+* Rebranding: Formally renamed the plugin to **UserFlow**.
 * Improved: Settings page formatting and code structure.
 * Improved: Updated settings labels for better clarity.
 * Improved: Use `wp_validate_redirect` for more robust same-site URL validation.
