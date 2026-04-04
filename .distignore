@@ -10,3 +10,4 @@ vendor/
 .wordpress-org/
 .phpcs-cache
 README.md
+tests/
