@@ -1,0 +1,23 @@
+{
+  "landingPage": "/wp-admin/options-general.php?page=admin-only-settings",
+  "features": {
+    "networking": true
+  },
+  "steps": [
+    {
+        "step": "login",
+        "username": "admin",
+        "password": "password"
+      },
+    {
+      "step": "installPlugin",
+      "pluginZipFile": {
+        "resource": "wordpress.org/plugins",
+        "slug": "admin-only-dashboard"
+      },
+      "options": {
+        "activate": true
+      }
+    }
+  ]
+}

@@ -11,7 +11,7 @@
  * Plugin Name:       Disable Dashboard Access
  * Plugin URI:        https://wordpress.org/plugins/admin-only/
  * Description:       Disable Dashboard Access: Only administrators can access the WordPress dashboard by default. Easily allow specific users to log in via a simple whitelist. Quick and easy setup.
- * Version:           1.2.5
+ * Version:           1.2.6
  * Requires at least: 6.5
  * Requires PHP:      7.0
  * Author:            Ga Satrya
