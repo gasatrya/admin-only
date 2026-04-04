@@ -43,6 +43,7 @@
     "zip": "composer archive --format=zip --file admin-only",
     "phpcs": "phpcs",
     "phpcbf": "phpcbf",
+    "test": "php tests/run-tests.php",
     "make-pot": "php vendor/wp-cli/wp-cli/php/boot-fs.php i18n make-pot . languages/admin-only.pot"
   }
 }
