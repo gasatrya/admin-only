@@ -1,4 +1,4 @@
-=== Disable Dashboard Access ===
+=== UserFlow - Disable Dashboard Access for Non Admin ===
 Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
@@ -8,7 +8,7 @@ Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-Disable Dashboard Access: Only admins can access the dashboard by default. Whitelist trusted users easily, quick setup, and secure.
+UserFlow: Only admins can access the dashboard by default. Whitelist trusted users easily, quick setup, and secure.
 
 == Description ==
 
@@ -24,7 +24,7 @@ Remove dashboard access to non-admin users and easily control who can access you
 - Hide admin toolbar for non-authorized users
 - Developer-friendly filters for advanced customization
 
-**Why Choose Disable Dashboard Access?**
+**Why Choose UserFlow?**
 
 * **Maximum Protection**: Instantly block unauthorized users from accessing sensitive dashboard areas.
 * **Effortless Whitelisting**: Grant dashboard access to trusted users (developers, VAs, contractors) without changing their roles. Just add their usernames!
@@ -56,7 +56,6 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 * Improved: Use `wp_validate_redirect` for more robust same-site URL validation.
 * Added: `admon_access_capability` filter for developer customization of access rights.
 * Fix: Updated `make-pot` composer script for Windows compatibility.
-* Maintenance: Excluded `AGENTS.md` from the distribution package.
 
 = 1.2.5 =
 * Performance: Optimized access checks with static caching (memoization) to reduce redundant processing.
@@ -84,4 +83,3 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 
 = 1.0.0 =
 * First version
-

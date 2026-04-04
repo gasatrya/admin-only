@@ -325,8 +325,8 @@ function admon_custom_redirect_callback() {
  */
 function admon_add_settings_page() {
 	$hook_suffix = add_options_page(
-		__( 'Admin Only Settings', 'admin-only' ),
-		__( 'Admin Only', 'admin-only' ),
+		__( 'UserFlow Settings', 'admin-only' ),
+		__( 'UserFlow', 'admin-only' ),
 		apply_filters( 'admon_access_capability', 'manage_options' ),
 		'admin-only-settings',
 		'admon_settings_page_callback'
@@ -348,9 +348,7 @@ function admon_settings_page_callback() {
 
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html__( 'Admin Only Dashboard', 'admin-only' ); ?></h1>
-
-		<?php settings_errors(); ?>
+		<h1><?php echo esc_html__( 'UserFlow', 'admin-only' ); ?></h1>
 
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-2">
@@ -458,7 +456,7 @@ function admon_add_help_tabs() {
 		array(
 			'id' => 'admon_overview',
 			'title' => __( 'Overview', 'admin-only' ),
-			'content' => '<p>' . __( '<strong>Admin Only Dashboard</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities.', 'admin-only' ) . '</p>',
+			'content' => '<p>' . __( '<strong>UserFlow</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities.', 'admin-only' ) . '</p>',
 		)
 	);
 
