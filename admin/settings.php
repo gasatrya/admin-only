@@ -115,6 +115,13 @@ function admon_enqueue_settings_scripts( $hook ) {
 		'1.3.0',
 		true // Load in footer
 	);
+
+	wp_enqueue_style(
+		'admon-settings-css',
+		ADMON_PLUGIN_URL . 'admin/css/settings.css',
+		array(),
+		'1.3.0'
+	);
 }
 add_action( 'admin_enqueue_scripts', 'admon_enqueue_settings_scripts' );
 
@@ -361,7 +368,7 @@ function admon_settings_page_callback() {
 
 	?>
 	<div class="wrap">
-		<h1><?php echo esc_html__( 'UserFlow', 'admin-only' ); ?></h1>
+		<h1><?php echo esc_html__( 'UserFlow Settings', 'admin-only' ); ?></h1>
 
 		<div id="poststuff">
 			<div id="post-body" class="metabox-holder columns-2">
@@ -389,15 +396,15 @@ function admon_settings_page_callback() {
 				<div id="postbox-container-1" class="postbox-container">
 					<div class="postbox">
 						<h2 class="hndle ui-sortable-handle">
-							<span><?php esc_html_e( 'Is Your Site Leaking Revenue?', 'admin-only' ); ?></span>
+							<span><?php esc_html_e( 'Connect with the Developer', 'admin-only' ); ?></span>
 						</h2>
 						<div class="inside">
-							<p><?php esc_html_e( 'Take the 2-minute audit to identify the hidden conversion leaks costing you customers.', 'admin-only' ); ?>
+							<p><?php esc_html_e( 'Hi, I\'m Ga Satrya! I\'m active on LinkedIn sharing tips on WordPress security, automation, and building better user flows.', 'admin-only' ); ?>
 							</p>
 							<p>
-								<a href="https://www.ctaflow.com/tools/website-health-audit/" target="_blank"
-									class="button button-primary" style="width: 100%; text-align: center;">
-									<?php esc_html_e( 'Get Your Free Audit', 'admin-only' ); ?>
+								<a href="https://www.linkedin.com/in/gasatrya/" target="_blank"
+									class="button button-primary admon-linkedin-button" rel="noopener noreferrer">
+									<?php esc_html_e( 'Connect on LinkedIn', 'admin-only' ); ?>
 								</a>
 							</p>
 							<hr>
@@ -473,11 +480,11 @@ function admon_add_help_tabs() {
 		)
 	);
 
-	// Access Control Tab.
+	// General Settings Tab.
 	$screen->add_help_tab(
 		array(
 			'id' => 'admon_access_control',
-			'title' => __( 'Access Control', 'admin-only' ),
+			'title' => __( 'General Settings', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Allowed Users:</strong> Enter a comma-separated list of usernames (e.g., <code>john_doe, jane_doe</code>) to allow specific non-admin users to access the dashboard.', 'admin-only' ) . '</p>' .
 				'<p>' . __( '<strong>Custom Redirect URL:</strong> By default, blocked users are redirected to the homepage. You can enter a custom URL here (must be within the same site) to redirect them to a specific page, such as a custom login or error page.', 'admin-only' ) . '</p>',
 		)

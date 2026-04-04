@@ -2,21 +2,22 @@
 # This file is distributed under the GPL v2 or later.
 msgid ""
 msgstr ""
-"Project-Id-Version: Disable Dashboard Access 1.2.6\n"
+"Project-Id-Version: UserFlow 1.3.0\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/admin-only\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-04-04T07:38:51+00:00\n"
+"POT-Creation-Date: 2026-04-04T11:59:05+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: admin-only\n"
 
 #. Plugin Name of the plugin
 #: admin-only.php:11
-msgid "Disable Dashboard Access"
+#: admin/settings.php:349
+msgid "UserFlow"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -26,7 +27,7 @@ msgstr ""
 
 #. Description of the plugin
 #: admin-only.php:13
-msgid "Disable Dashboard Access: Only administrators can access the WordPress dashboard by default. Easily allow specific users to log in via a simple whitelist. Quick and easy setup."
+msgid "UserFlow: Only administrators can access the WordPress dashboard by default. Easily allow specific users to log in via a simple whitelist. Quick and easy setup."
 msgstr ""
 
 #. Author of the plugin
@@ -37,15 +38,6 @@ msgstr ""
 #. Author URI of the plugin
 #: admin-only.php:18
 msgid "https://www.ctaflow.com/"
-msgstr ""
-
-#: admin/settings.php:40
-msgid "General Settings"
-msgstr ""
-
-#: admin/settings.php:48
-#: admin/settings.php:479
-msgid "Session Management"
 msgstr ""
 
 #: admin/settings.php:56
@@ -68,190 +60,189 @@ msgstr ""
 msgid "Custom Redirect URL"
 msgstr ""
 
-#: admin/settings.php:133
+#: admin/settings.php:161
 msgid "Custom timeout must be between 1 and 168 hours."
 msgstr ""
 
 #. translators: %s: List of invalid usernames.
-#: admin/settings.php:162
+#: admin/settings.php:190
 #, php-format
 msgid "Username not found and removed: %s"
 msgid_plural "Usernames not found and removed: %s"
 msgstr[0] ""
 msgstr[1] ""
 
-#: admin/settings.php:188
+#: admin/settings.php:216
 msgid "Custom redirect URL must be within this WordPress site."
 msgstr ""
 
-#: admin/settings.php:204
+#: admin/settings.php:232
+#: admin/settings.php:487
+msgid "General Settings"
+msgstr ""
+
+#: admin/settings.php:233
 msgid "Control which users can access the WordPress dashboard."
 msgstr ""
 
-#: admin/settings.php:211
+#: admin/settings.php:240
+#: admin/settings.php:497
+msgid "Session Management"
+msgstr ""
+
+#: admin/settings.php:241
 msgid "Automatically log out users after periods of inactivity for enhanced security."
 msgstr ""
 
-#: admin/settings.php:222
+#: admin/settings.php:252
 msgid "Default WordPress"
 msgstr ""
 
-#: admin/settings.php:223
+#: admin/settings.php:253
 msgid "1 hour"
 msgstr ""
 
-#: admin/settings.php:224
+#: admin/settings.php:254
 msgid "2 hours"
 msgstr ""
 
-#: admin/settings.php:225
+#: admin/settings.php:255
 msgid "4 hours"
 msgstr ""
 
-#: admin/settings.php:226
+#: admin/settings.php:256
 msgid "8 hours"
 msgstr ""
 
-#: admin/settings.php:227
+#: admin/settings.php:257
 msgid "12 hours"
 msgstr ""
 
-#: admin/settings.php:228
+#: admin/settings.php:258
 msgid "24 hours"
 msgstr ""
 
-#: admin/settings.php:229
+#: admin/settings.php:259
 msgid "Custom"
 msgstr ""
 
-#: admin/settings.php:244
+#: admin/settings.php:274
 msgid "hours (1-168)"
 msgstr ""
 
-#: admin/settings.php:247
+#: admin/settings.php:277
 msgid "Automatically log out users after this period of inactivity. Custom allows 1-168 hours (1 week maximum)."
 msgstr ""
 
-#: admin/settings.php:271
+#: admin/settings.php:291
 msgid "Also auto-logout administrators (normally excluded)"
 msgstr ""
 
-#: admin/settings.php:285
+#: admin/settings.php:305
 msgid "Always apply session timeout, even when \"Remember Me\" is checked"
 msgstr ""
 
-#: admin/settings.php:288
+#: admin/settings.php:308
 msgid "When unchecked, \"Remember Me\" extends sessions to 2 weeks (WordPress default). When checked, auto-logout applies regardless of \"Remember Me\"."
 msgstr ""
 
-#: admin/settings.php:303
+#: admin/settings.php:323
 msgid "Comma-separated usernames of non-admin users who should have dashboard access. Administrator users are always allowed."
 msgstr ""
 
-#: admin/settings.php:318
+#: admin/settings.php:338
 msgid "Redirect non-admin users to this URL when access is denied. Leave blank to redirect to homepage."
 msgstr ""
 
-#: admin/settings.php:328
-msgid "Admin Only Settings"
-msgstr ""
-
-#: admin/settings.php:329
-msgid "Admin Only"
-msgstr ""
-
-#: admin/settings.php:351
-msgid "Admin Only Dashboard"
-msgstr ""
-
-#: admin/settings.php:366
-msgid "Save Settings"
-msgstr ""
-
-#: admin/settings.php:373
-msgid "Reset All Settings"
-msgstr ""
-
-#: admin/settings.php:381
-msgid "Is Your Site Leaking Revenue?"
+#: admin/settings.php:348
+#: admin/settings.php:371
+msgid "UserFlow Settings"
 msgstr ""
 
 #: admin/settings.php:384
-msgid "Take the 2-minute audit to identify the hidden conversion leaks costing you customers."
+msgid "Save Settings"
 msgstr ""
 
-#: admin/settings.php:389
-msgid "Get Your Free Audit"
+#: admin/settings.php:391
+msgid "Reset All Settings"
 msgstr ""
 
-#: admin/settings.php:397
+#: admin/settings.php:399
+msgid "Connect with the Developer"
+msgstr ""
+
+#: admin/settings.php:402
+msgid "Hi, I'm Ga Satrya! I'm active on LinkedIn sharing tips on WordPress security, automation, and building better user flows."
+msgstr ""
+
+#: admin/settings.php:407
+msgid "Connect on LinkedIn"
+msgstr ""
+
+#: admin/settings.php:415
 msgid "Rate this plugin"
 msgstr ""
 
-#: admin/settings.php:439
+#: admin/settings.php:457
 msgid "All settings have been reset to their default values."
 msgstr ""
 
-#: admin/settings.php:460
+#: admin/settings.php:478
 msgid "Overview"
 msgstr ""
 
-#: admin/settings.php:461
-msgid "<strong>Admin Only Dashboard</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities."
+#: admin/settings.php:479
+msgid "<strong>UserFlow</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities."
 msgstr ""
 
-#: admin/settings.php:469
-msgid "Access Control"
-msgstr ""
-
-#: admin/settings.php:470
+#: admin/settings.php:488
 msgid "<strong>Allowed Users:</strong> Enter a comma-separated list of usernames (e.g., <code>john_doe, jane_doe</code>) to allow specific non-admin users to access the dashboard."
 msgstr ""
 
-#: admin/settings.php:471
+#: admin/settings.php:489
 msgid "<strong>Custom Redirect URL:</strong> By default, blocked users are redirected to the homepage. You can enter a custom URL here (must be within the same site) to redirect them to a specific page, such as a custom login or error page."
 msgstr ""
 
-#: admin/settings.php:480
+#: admin/settings.php:498
 msgid "<strong>Auto-Logout:</strong> Automatically log users out after a specific period of inactivity. This improves security, especially for shared computers."
 msgstr ""
 
-#: admin/settings.php:481
+#: admin/settings.php:499
 msgid "<strong>Include Administrators:</strong> By default, administrators are exempt from auto-logout. Check this option to enforce the timeout for admins as well."
 msgstr ""
 
-#: admin/settings.php:482
+#: admin/settings.php:500
 msgid "<strong>Override \"Remember Me\":</strong> If checked, the session timeout will apply even if the user checked \"Remember Me\" during login. Otherwise, \"Remember Me\" sessions will last for 14 days."
 msgstr ""
 
-#: admin/settings.php:490
+#: admin/settings.php:508
 msgid "Troubleshooting"
 msgstr ""
 
-#: admin/settings.php:491
+#: admin/settings.php:509
 msgid "<strong>Locked Out?</strong> If you accidentally lock yourself out, you can regain access by:"
 msgstr ""
 
-#: admin/settings.php:493
+#: admin/settings.php:511
 msgid "Accessing your site files via FTP or Hosting File Manager."
 msgstr ""
 
-#: admin/settings.php:494
+#: admin/settings.php:512
 msgid "Navigating to <code>/wp-content/plugins/</code>."
 msgstr ""
 
-#: admin/settings.php:495
+#: admin/settings.php:513
 msgid "Renaming the <code>admin-only</code> folder to <code>admin-only-disabled</code>."
 msgstr ""
 
-#: admin/settings.php:496
+#: admin/settings.php:514
 msgid "This will automatically deactivate the plugin, allowing you to log in."
 msgstr ""
 
-#: admin/settings.php:503
+#: admin/settings.php:521
 msgid "For more information:"
 msgstr ""
 
-#: admin/settings.php:504
+#: admin/settings.php:522
 msgid "Plugin Page"
 msgstr ""

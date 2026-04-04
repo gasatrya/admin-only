@@ -1,0 +1,30 @@
+/**
+ * UserFlow Settings Styles
+ */
+
+/* LinkedIn Button */
+.admon-linkedin-button {
+    width: 100%;
+    text-align: center;
+    background-color: #0077b5 !important; /* LinkedIn Blue */
+    border-color: #0077b5 !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    text-shadow: none !important;
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    height: 32px;
+}
+
+.admon-linkedin-button:hover,
+.admon-linkedin-button:focus {
+    background-color: #005582 !important;
+    border-color: #005582 !important;
+    color: #fff !important;
+}
+
+.admon-linkedin-button .dashicons {
+    margin-top: 0;
+}
