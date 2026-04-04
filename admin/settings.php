@@ -23,13 +23,13 @@ function admon_settings_init() {
 		'admin_only_settings',
 		array(
 			'sanitize_callback' => 'admon_sanitize_settings',
-			'default' => array(
-				'session_timeout' => '',
+			'default'           => array(
+				'session_timeout'      => '',
 				'custom_timeout_hours' => '',
-				'apply_to_admins' => 0,
+				'apply_to_admins'      => 0,
 				'override_remember_me' => 0,
-				'allowed_users' => '',
-				'custom_redirect' => '',
+				'allowed_users'        => '',
+				'custom_redirect'      => '',
 			),
 		)
 	);
@@ -98,6 +98,27 @@ function admon_settings_init() {
 add_action( 'admin_init', 'admon_settings_init' );
 
 /**
+ * Enqueue admin scripts for the settings page.
+ *
+ * @param string $hook The current admin page.
+ */
+function admon_enqueue_settings_scripts( $hook ) {
+	// Only enqueue on our specific settings page.
+	if ( 'settings_page_admin-only-settings' !== $hook ) {
+		return;
+	}
+
+	wp_enqueue_script(
+		'admon-settings-js',
+		ADMON_PLUGIN_URL . 'admin/js/settings.js',
+		array(),
+		'1.3.0',
+		true // Load in footer
+	);
+}
+add_action( 'admin_enqueue_scripts', 'admon_enqueue_settings_scripts' );
+
+/**
  * Sanitize settings
  *
  * @param array $input Raw settings input.
@@ -112,8 +133,8 @@ function admon_sanitize_settings( $input ) {
 		if ( 'custom' === $timeout ) {
 			$sanitized['session_timeout'] = 'custom';
 		} else {
-			$timeout_int = absint( $timeout );
-			$allowed_timeouts = array( 1, 2, 4, 8, 12, 24 );
+			$timeout_int                  = absint( $timeout );
+			$allowed_timeouts             = array( 1, 2, 4, 8, 12, 24 );
 			$sanitized['session_timeout'] = in_array( $timeout_int, $allowed_timeouts, true ) ? $timeout_int : '';
 		}
 	}
@@ -145,13 +166,13 @@ function admon_sanitize_settings( $input ) {
 
 	// Sanitize and validate allowed users.
 	if ( isset( $input['allowed_users'] ) ) {
-		$raw_usernames = sanitize_text_field( $input['allowed_users'] );
-		$validation_result = admon_validate_usernames_with_feedback( $raw_usernames );
+		$raw_usernames              = sanitize_text_field( $input['allowed_users'] );
+		$validation_result          = admon_validate_usernames_with_feedback( $raw_usernames );
 		$sanitized['allowed_users'] = $validation_result['valid_usernames'];
 
 		// Show error message for invalid usernames.
 		if ( ! empty( $validation_result['invalid_usernames'] ) ) {
-			$invalid_count = count( $validation_result['invalid_usernames'] );
+			$invalid_count  = count( $validation_result['invalid_usernames'] );
 			$usernames_list = implode( ', ', $validation_result['invalid_usernames'] );
 
 			add_settings_error(
@@ -177,7 +198,7 @@ function admon_sanitize_settings( $input ) {
 		$url = trim( $input['custom_redirect'] );
 		if ( ! empty( $url ) ) {
 			// Validate that URL is within the same WordPress installation
-			$sanitized_url = admon_validate_same_site_url( $url );
+			$sanitized_url                = admon_validate_same_site_url( $url );
 			$sanitized['custom_redirect'] = ! empty( $sanitized_url ) ? $sanitized_url : '';
 
 			// Show error if URL is external
@@ -215,22 +236,22 @@ function admon_session_section_callback() {
  * Session timeout field callback
  */
 function admon_session_timeout_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = get_option( 'admin_only_settings' );
 	$current_timeout = $settings['session_timeout'] ?? '';
-	$custom_hours = $settings['custom_timeout_hours'] ?? '';
+	$custom_hours    = $settings['custom_timeout_hours'] ?? '';
 	$timeout_options = array(
-		'' => __( 'Default WordPress', 'admin-only' ),
-		1 => __( '1 hour', 'admin-only' ),
-		2 => __( '2 hours', 'admin-only' ),
-		4 => __( '4 hours', 'admin-only' ),
-		8 => __( '8 hours', 'admin-only' ),
-		12 => __( '12 hours', 'admin-only' ),
-		24 => __( '24 hours', 'admin-only' ),
+		''       => __( 'Default WordPress', 'admin-only' ),
+		1        => __( '1 hour', 'admin-only' ),
+		2        => __( '2 hours', 'admin-only' ),
+		4        => __( '4 hours', 'admin-only' ),
+		8        => __( '8 hours', 'admin-only' ),
+		12       => __( '12 hours', 'admin-only' ),
+		24       => __( '24 hours', 'admin-only' ),
 		'custom' => __( 'Custom', 'admin-only' ),
 	);
 
 	?>
-	<select name="admin_only_settings[session_timeout]" id="session_timeout" onchange="toggleCustomTimeout(this.value)">
+	<select name="admin_only_settings[session_timeout]" id="session_timeout">
 		<?php foreach ( $timeout_options as $value => $label ) : ?>
 			<option value="<?php echo esc_attr( $value ); ?>" <?php selected( $current_timeout, $value ); ?>>
 				<?php echo esc_html( $label ); ?>
@@ -246,16 +267,6 @@ function admon_session_timeout_callback() {
 	<p class="description">
 		<?php esc_html_e( 'Automatically log out users after this period of inactivity. Custom allows 1-168 hours (1 week maximum).', 'admin-only' ); ?>
 	</p>
-	<script>
-		function toggleCustomTimeout(value) {
-			var customInput = document.getElementById('custom-timeout-input');
-			if (value === 'custom') {
-				customInput.style.display = 'block';
-			} else {
-				customInput.style.display = 'none';
-			}
-		}
-	</script>
 	<?php
 }
 
@@ -263,7 +274,7 @@ function admon_session_timeout_callback() {
  * Apply to admins field callback
  */
 function admon_apply_to_admins_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = get_option( 'admin_only_settings' );
 	$apply_to_admins = $settings['apply_to_admins'] ?? 0;
 	?>
 	<label>
@@ -277,7 +288,7 @@ function admon_apply_to_admins_callback() {
  * Override Remember Me field callback
  */
 function admon_override_remember_me_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings             = get_option( 'admin_only_settings' );
 	$override_remember_me = $settings['override_remember_me'] ?? 0;
 	?>
 	<label>
@@ -294,7 +305,7 @@ function admon_override_remember_me_callback() {
  * Allowed users field callback
  */
 function admon_allowed_users_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings      = get_option( 'admin_only_settings' );
 	$allowed_users = $settings['allowed_users'] ?? '';
 	?>
 	<input type="text" name="admin_only_settings[allowed_users]" value="<?php echo esc_attr( $allowed_users ); ?>"
@@ -309,7 +320,7 @@ function admon_allowed_users_callback() {
  * Custom redirect field callback
  */
 function admon_custom_redirect_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = get_option( 'admin_only_settings' );
 	$custom_redirect = $settings['custom_redirect'] ?? '';
 	?>
 	<input type="url" name="admin_only_settings[custom_redirect]" value="<?php echo esc_attr( $custom_redirect ); ?>"
@@ -420,12 +431,12 @@ function admon_handle_reset_settings() {
 	if ( isset( $_POST['admon_reset_action'] ) && 'reset' === $_POST['admon_reset_action'] ) {
 		// Reset to default settings
 		$default_settings = array(
-			'session_timeout' => '',
+			'session_timeout'      => '',
 			'custom_timeout_hours' => '',
-			'apply_to_admins' => 0,
+			'apply_to_admins'      => 0,
 			'override_remember_me' => 0,
-			'allowed_users' => '',
-			'custom_redirect' => '',
+			'allowed_users'        => '',
+			'custom_redirect'      => '',
 		);
 
 		update_option( 'admin_only_settings', $default_settings );
@@ -454,8 +465,8 @@ function admon_add_help_tabs() {
 	// Overview Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_overview',
-			'title' => __( 'Overview', 'admin-only' ),
+			'id'      => 'admon_overview',
+			'title'   => __( 'Overview', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>UserFlow</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities.', 'admin-only' ) . '</p>',
 		)
 	);
@@ -463,8 +474,8 @@ function admon_add_help_tabs() {
 	// Access Control Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_access_control',
-			'title' => __( 'Access Control', 'admin-only' ),
+			'id'      => 'admon_access_control',
+			'title'   => __( 'Access Control', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Allowed Users:</strong> Enter a comma-separated list of usernames (e.g., <code>john_doe, jane_doe</code>) to allow specific non-admin users to access the dashboard.', 'admin-only' ) . '</p>' .
 				'<p>' . __( '<strong>Custom Redirect URL:</strong> By default, blocked users are redirected to the homepage. You can enter a custom URL here (must be within the same site) to redirect them to a specific page, such as a custom login or error page.', 'admin-only' ) . '</p>',
 		)
@@ -473,8 +484,8 @@ function admon_add_help_tabs() {
 	// Session Management Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_session',
-			'title' => __( 'Session Management', 'admin-only' ),
+			'id'      => 'admon_session',
+			'title'   => __( 'Session Management', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Auto-Logout:</strong> Automatically log users out after a specific period of inactivity. This improves security, especially for shared computers.', 'admin-only' ) . '</p>' .
 				'<p>' . __( '<strong>Include Administrators:</strong> By default, administrators are exempt from auto-logout. Check this option to enforce the timeout for admins as well.', 'admin-only' ) . '</p>' .
 				'<p>' . __( '<strong>Override "Remember Me":</strong> If checked, the session timeout will apply even if the user checked "Remember Me" during login. Otherwise, "Remember Me" sessions will last for 14 days.', 'admin-only' ) . '</p>',
@@ -484,8 +495,8 @@ function admon_add_help_tabs() {
 	// Troubleshooting Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_troubleshooting',
-			'title' => __( 'Troubleshooting', 'admin-only' ),
+			'id'      => 'admon_troubleshooting',
+			'title'   => __( 'Troubleshooting', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Locked Out?</strong> If you accidentally lock yourself out, you can regain access by:', 'admin-only' ) . '</p>' .
 				'<ol>' .
 				'<li>' . __( 'Accessing your site files via FTP or Hosting File Manager.', 'admin-only' ) . '</li>' .
