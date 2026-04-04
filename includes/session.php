@@ -31,7 +31,7 @@ function admon_set_session_expiration( $expiration, $user_id, $remember ) {
 	$user            = get_userdata( $user_id );
 
 	// Skip if user is admin and we're not applying to admins.
-	if ( $user && $user->has_cap( 'manage_options' ) && ! $apply_to_admins ) {
+	if ( $user && $user->has_cap( apply_filters( 'admon_access_capability', 'manage_options' ) ) && ! $apply_to_admins ) {
 		return $expiration;
 	}
 
