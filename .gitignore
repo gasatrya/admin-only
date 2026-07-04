@@ -1,3 +1,4 @@
 /composer.lock
 /vendor
 .phpcs-cache
+*.zip

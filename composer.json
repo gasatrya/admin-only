@@ -36,7 +36,9 @@
       "CLAUDE.md",
       "AGENTS.md",
       ".github/",
-      "phpcs.xml.dist"
+      "phpcs.xml.dist",
+      "tests/",
+      ".wordpress-org/"
     ]
   },
   "scripts": {
