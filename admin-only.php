@@ -15,7 +15,7 @@
  * Requires at least: 6.5
  * Requires PHP:      7.0
  * Author:            Ga Satrya
- * Author URI:        https://www.ctaflow.com/
+ * Author URI:        https://www.gasatrya.com/
  * License:           GPL v2 or later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  */

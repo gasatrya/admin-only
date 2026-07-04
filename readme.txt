@@ -42,7 +42,7 @@ Remove dashboard access to non-admin users and easily control who can access you
 Protect your site, empower your workflow, and deliver a professional experience—all with one lightweight plugin.
 
 
-[Read more detail](https://www.ctaflow.com/plugins/admin-only-dashboard/)
+[Read more detail](https://www.gasatrya.com/wp-plugins/admin-only-dashboard/)
 
 == Screenshots ==
 

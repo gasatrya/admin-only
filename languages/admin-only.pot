@@ -37,7 +37,7 @@ msgstr ""
 
 #. Author URI of the plugin
 #: admin-only.php:18
-msgid "https://www.ctaflow.com/"
+msgid "https://www.gasatrya.com/"
 msgstr ""
 
 #: admin/settings.php:56
