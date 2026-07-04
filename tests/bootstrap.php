@@ -26,14 +26,23 @@ function wp_validate_redirect( $url, $default = '' ) {
 		return $default;
 	}
 
-	// Simple mock: if it starts with '/' or contains 'example.com', consider it safe.
-	// But reject known dangerous protocols.
+	// Reject known dangerous protocols.
 	if ( preg_match( '/^(javascript|data):/i', $url ) ) {
 		return $default;
 	}
 
-	if ( strpos( $url, '/' ) === 0 || strpos( $url, 'example.com' ) !== false ) {
+	// Relative URLs are safe.
+	if ( strpos( $url, '/' ) === 0 ) {
 		return $url;
+	}
+
+	// Parse the host from absolute URLs for validation.
+	$parts = wp_parse_url( $url );
+	if ( false !== $parts && isset( $parts['host'] ) ) {
+		// Only allow the mock site domain.
+		if ( 'example.com' === $parts['host'] ) {
+			return $url;
+		}
 	}
 
 	return $default;
@@ -163,6 +172,71 @@ function get_user_by( $field, $value ) {
 		return (object) array( 'user_login' => 'testuser' );
 	}
 	return false;
+}
+
+// phpcs:disable Universal.Files.SeparateFunctionsFromOO -- Test mock file; intentionally mixes functions and classes to mock WordPress.
+/**
+ * Mock WP_User_Query.
+ *
+ * Simulates a batch user query. Only 'testuser' is treated as existing.
+ * Validates the 'fields' parameter against real wp_users column names.
+ *
+ * @phpcs:disable WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedClassFound
+ */
+class WP_User_Query {
+
+	/**
+	 * Valid wp_users column names that WP_User_Query accepts as 'fields'.
+	 *
+	 * @var string[]
+	 */
+	private const VALID_FIELDS = array(
+		'ID',
+		'user_login',
+		'user_pass',
+		'user_nicename',
+		'user_email',
+		'user_url',
+		'user_registered',
+		'user_activation_key',
+		'user_status',
+		'display_name',
+	);
+
+	/**
+	 * Query results.
+	 *
+	 * @var array
+	 */
+	private $results = array();
+
+	/**
+	 * Constructor.
+	 *
+	 * @param array $args Query arguments. Supports 'login__in' and 'fields' keys.
+	 */
+	public function __construct( $args ) {
+		$fields = isset( $args['fields'] ) ? $args['fields'] : 'all';
+		$input_logins  = isset( $args['login__in'] ) ? (array) $args['login__in'] : array();
+
+		// Reject invalid column names — real WP_User_Query would produce an SQL error.
+		if ( ! in_array( $fields, self::VALID_FIELDS, true ) ) {
+			$this->results = array();
+			return;
+		}
+
+		// Only 'testuser' exists in the mock database.
+		$this->results = array_values( array_intersect( $input_logins, array( 'testuser' ) ) );
+	}
+
+	/**
+	 * Get query results.
+	 *
+	 * @return array Matching user logins.
+	 */
+	public function get_results() {
+		return $this->results;
+	}
 }
 
 // Include the core file.

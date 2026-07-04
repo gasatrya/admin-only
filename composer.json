@@ -2,7 +2,7 @@
   "name": "gasatrya/admin-only",
   "description": "This plugin allows you to restrict access to the dashboard area, ensuring that only administrators have the privilege to manage and control your site's backend.",
   "type": "project",
-  "license": "GPL-v2",
+  "license": "GPL-2.0-or-later",
   "authors": [
     {
       "name": "Gasatrya",

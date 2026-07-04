@@ -4,7 +4,7 @@
 [![License](https://img.shields.io/badge/license-GPL--2.0-blue.svg)](LICENSE)
 [![PHP Version](https://img.shields.io/badge/php-%3E%3D7.4-8892bf.svg)](composer.json)
 
-**UserFlow** (formerly *Disable Dashboard Access*) is a lightweight, secure WordPress plugin designed to restrict dashboard access to administrators and authorized users. It provides robust session management and whitelisting capabilities to keep your site's backend secure.
+**UserFlow** (formerly _Admin Only Dashboard_) is a lightweight, secure WordPress plugin designed to restrict dashboard access to administrators and authorized users. It provides robust session management and whitelisting capabilities to keep your site's backend secure.
 
 ## 🚀 Features
 
@@ -19,11 +19,13 @@
 ## Installation
 
 ### From WordPress.org
+
 1. Go to **Plugins > Add New** in your WordPress dashboard.
 2. Search for `UserFlow` or `Disable Dashboard Access`.
 3. Click **Install Now** and then **Activate**.
 
 ### Manual Installation
+
 1. Download the [latest release](https://github.com/gasatrya/admin-only/releases).
 2. Upload the `admin-only` folder to your `/wp-content/plugins/` directory.
 3. Activate the plugin through the 'Plugins' menu in WordPress.
@@ -33,6 +35,7 @@
 UserFlow is built with extensibility in mind.
 
 ### Custom Access Capability
+
 Change the required capability to access the dashboard or settings page:
 
 ```php
@@ -51,4 +54,5 @@ add_filter( 'admon_access_capability', function( $capability ) {
 This project is licensed under the GPLv2 or later License. See the [LICENSE](LICENSE) file for details.
 
 ---
-Built with ❤️ by [Ga Satrya](https://www.ctaflow.com/)
+
+Built with ❤️ by [Ga Satrya](https://gasatrya.com/)

@@ -23,13 +23,13 @@ function admon_settings_init() {
 		'admin_only_settings',
 		array(
 			'sanitize_callback' => 'admon_sanitize_settings',
-			'default' => array(
-				'session_timeout' => '',
+			'default'           => array(
+				'session_timeout'      => '',
 				'custom_timeout_hours' => '',
-				'apply_to_admins' => 0,
+				'apply_to_admins'      => 0,
 				'override_remember_me' => 0,
-				'allowed_users' => '',
-				'custom_redirect' => '',
+				'allowed_users'        => '',
+				'custom_redirect'      => '',
 			),
 		)
 	);
@@ -112,7 +112,7 @@ function admon_enqueue_settings_scripts( $hook ) {
 		'admon-settings-js',
 		ADMON_PLUGIN_URL . 'admin/js/settings.js',
 		array(),
-		'1.3.0',
+		'1.3.1',
 		true // Load in footer
 	);
 
@@ -120,7 +120,7 @@ function admon_enqueue_settings_scripts( $hook ) {
 		'admon-settings-css',
 		ADMON_PLUGIN_URL . 'admin/css/settings.css',
 		array(),
-		'1.3.0'
+		'1.3.1'
 	);
 }
 add_action( 'admin_enqueue_scripts', 'admon_enqueue_settings_scripts' );
@@ -140,10 +140,12 @@ function admon_sanitize_settings( $input ) {
 		if ( 'custom' === $timeout ) {
 			$sanitized['session_timeout'] = 'custom';
 		} else {
-			$timeout_int = absint( $timeout );
-			$allowed_timeouts = array( 1, 2, 4, 8, 12, 24 );
+			$timeout_int                  = absint( $timeout );
+			$allowed_timeouts             = array( 1, 2, 4, 8, 12, 24 );
 			$sanitized['session_timeout'] = in_array( $timeout_int, $allowed_timeouts, true ) ? $timeout_int : '';
 		}
+	} else {
+		$sanitized['session_timeout'] = '';
 	}
 
 	// Sanitize custom timeout hours.
@@ -163,6 +165,8 @@ function admon_sanitize_settings( $input ) {
 				);
 			}
 		}
+	} else {
+		$sanitized['custom_timeout_hours'] = '';
 	}
 
 	// Sanitize apply to admins.
@@ -173,31 +177,32 @@ function admon_sanitize_settings( $input ) {
 
 	// Sanitize and validate allowed users.
 	if ( isset( $input['allowed_users'] ) ) {
-		$raw_usernames = sanitize_text_field( $input['allowed_users'] );
-		$validation_result = admon_validate_usernames_with_feedback( $raw_usernames );
+		$raw_usernames              = sanitize_text_field( $input['allowed_users'] );
+		$validation_result          = admon_validate_usernames_with_feedback( $raw_usernames );
 		$sanitized['allowed_users'] = $validation_result['valid_usernames'];
 
-		// Show error message for invalid usernames.
+		// Show error message for invalid usernames (count only to prevent enumeration).
 		if ( ! empty( $validation_result['invalid_usernames'] ) ) {
 			$invalid_count = count( $validation_result['invalid_usernames'] );
-			$usernames_list = implode( ', ', $validation_result['invalid_usernames'] );
 
 			add_settings_error(
 				'admin_only_settings',
 				'invalid_usernames',
 				sprintf(
-					// translators: %s: List of invalid usernames.
+					/* translators: %d: Number of invalid usernames. */
 					_n(
-						'Username not found and removed: %s',
-						'Usernames not found and removed: %s',
+						'%d username was not found and has been removed.',
+						'%d usernames were not found and have been removed.',
 						$invalid_count,
 						'admin-only'
 					),
-					$usernames_list
+					$invalid_count
 				),
 				'warning'
 			);
 		}
+	} else {
+		$sanitized['allowed_users'] = '';
 	}
 
 	// Sanitize custom redirect.
@@ -205,7 +210,7 @@ function admon_sanitize_settings( $input ) {
 		$url = trim( $input['custom_redirect'] );
 		if ( ! empty( $url ) ) {
 			// Validate that URL is within the same WordPress installation
-			$sanitized_url = admon_validate_same_site_url( $url );
+			$sanitized_url                = admon_validate_same_site_url( $url );
 			$sanitized['custom_redirect'] = ! empty( $sanitized_url ) ? $sanitized_url : '';
 
 			// Show error if URL is external
@@ -220,6 +225,8 @@ function admon_sanitize_settings( $input ) {
 		} else {
 			$sanitized['custom_redirect'] = '';
 		}
+	} else {
+		$sanitized['custom_redirect'] = '';
 	}
 
 	return $sanitized;
@@ -245,17 +252,17 @@ function admon_session_section_callback() {
  * Session timeout field callback
  */
 function admon_session_timeout_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = get_option( 'admin_only_settings' );
 	$current_timeout = $settings['session_timeout'] ?? '';
-	$custom_hours = $settings['custom_timeout_hours'] ?? '';
+	$custom_hours    = $settings['custom_timeout_hours'] ?? '';
 	$timeout_options = array(
-		'' => __( 'Default WordPress', 'admin-only' ),
-		1 => __( '1 hour', 'admin-only' ),
-		2 => __( '2 hours', 'admin-only' ),
-		4 => __( '4 hours', 'admin-only' ),
-		8 => __( '8 hours', 'admin-only' ),
-		12 => __( '12 hours', 'admin-only' ),
-		24 => __( '24 hours', 'admin-only' ),
+		''       => __( 'Default WordPress', 'admin-only' ),
+		1        => __( '1 hour', 'admin-only' ),
+		2        => __( '2 hours', 'admin-only' ),
+		4        => __( '4 hours', 'admin-only' ),
+		8        => __( '8 hours', 'admin-only' ),
+		12       => __( '12 hours', 'admin-only' ),
+		24       => __( '24 hours', 'admin-only' ),
 		'custom' => __( 'Custom', 'admin-only' ),
 	);
 
@@ -283,7 +290,7 @@ function admon_session_timeout_callback() {
  * Apply to admins field callback
  */
 function admon_apply_to_admins_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = get_option( 'admin_only_settings' );
 	$apply_to_admins = $settings['apply_to_admins'] ?? 0;
 	?>
 	<label>
@@ -297,7 +304,7 @@ function admon_apply_to_admins_callback() {
  * Override Remember Me field callback
  */
 function admon_override_remember_me_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings             = get_option( 'admin_only_settings' );
 	$override_remember_me = $settings['override_remember_me'] ?? 0;
 	?>
 	<label>
@@ -314,7 +321,7 @@ function admon_override_remember_me_callback() {
  * Allowed users field callback
  */
 function admon_allowed_users_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings      = get_option( 'admin_only_settings' );
 	$allowed_users = $settings['allowed_users'] ?? '';
 	?>
 	<input type="text" name="admin_only_settings[allowed_users]" value="<?php echo esc_attr( $allowed_users ); ?>"
@@ -329,7 +336,7 @@ function admon_allowed_users_callback() {
  * Custom redirect field callback
  */
 function admon_custom_redirect_callback() {
-	$settings = get_option( 'admin_only_settings' );
+	$settings        = get_option( 'admin_only_settings' );
 	$custom_redirect = $settings['custom_redirect'] ?? '';
 	?>
 	<input type="url" name="admin_only_settings[custom_redirect]" value="<?php echo esc_attr( $custom_redirect ); ?>"
@@ -347,7 +354,7 @@ function admon_add_settings_page() {
 	$hook_suffix = add_options_page(
 		__( 'UserFlow Settings', 'admin-only' ),
 		__( 'UserFlow', 'admin-only' ),
-		apply_filters( 'admon_access_capability', 'manage_options' ),
+		apply_filters( 'admon_settings_capability', 'manage_options' ),
 		'admin-only-settings',
 		'admon_settings_page_callback'
 	);
@@ -362,7 +369,7 @@ add_action( 'admin_menu', 'admon_add_settings_page' );
  */
 function admon_settings_page_callback() {
 	// Check user capabilities.
-	if ( ! current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) {
+	if ( ! current_user_can( apply_filters( 'admon_settings_capability', 'manage_options' ) ) ) {
 		return;
 	}
 
@@ -394,26 +401,33 @@ function admon_settings_page_callback() {
 
 				<!-- Sidebar -->
 				<div id="postbox-container-1" class="postbox-container">
+
 					<div class="postbox">
 						<h2 class="hndle ui-sortable-handle">
-							<span><?php esc_html_e( 'Connect with the Developer', 'admin-only' ); ?></span>
+							<span><?php esc_html_e( 'Need a WordPress Developer?', 'admin-only' ); ?></span>
 						</h2>
 						<div class="inside">
-							<p><?php esc_html_e( 'Hi, I\'m Ga Satrya! I\'m active on LinkedIn sharing tips on WordPress security, automation, and building better user flows.', 'admin-only' ); ?>
-							</p>
+							<p><?php esc_html_e( 'I build custom plugins, themes, and high-performance WordPress sites for businesses that need more than off-the-shelf solutions.', 'admin-only' ); ?></p>
 							<p>
-								<a href="https://www.linkedin.com/in/gasatrya/" target="_blank"
-									class="button button-primary admon-linkedin-button" rel="noopener noreferrer">
-									<?php esc_html_e( 'Connect on LinkedIn', 'admin-only' ); ?>
+								<a href="https://gasatrya.com/?utm_source=plugin&amp;utm_medium=admin-only-sidebar" target="_blank" rel="noopener noreferrer" class="button button-primary" style="width: 100%; text-align: center; box-sizing: border-box;">
+									<?php esc_html_e( 'Hire Me', 'admin-only' ); ?>
 								</a>
 							</p>
 							<hr>
-							<p>
-								<span class="dashicons dashicons-star-filled" style="color: #ffb900;"></span>
-								<a href="https://wordpress.org/support/plugin/admin-only-dashboard/reviews/#new-post"
-									target="_blank">
-									<?php esc_html_e( 'Rate this plugin', 'admin-only' ); ?>
-								</a>
+							<p style="margin-bottom: 0; display: flex; align-items: center; gap: 12px;">
+								<span>
+									<span class="dashicons dashicons-coffee" style="color: #C9A96E; vertical-align: middle;"></span>
+									<a href="https://paypal.com/satrya" target="_blank" style="text-decoration: none; vertical-align: middle;">
+										<?php esc_html_e( 'Donate', 'admin-only' ); ?>
+									</a>
+								</span>
+								<span style="color: #ccd0d4;">&middot;</span>
+								<span>
+									<span class="dashicons dashicons-star-filled" style="color: #ffb900; vertical-align: middle;"></span>
+									<a href="https://wordpress.org/support/plugin/admin-only-dashboard/reviews/#new-post" target="_blank" style="text-decoration: none; vertical-align: middle;">
+										<?php esc_html_e( 'Rate', 'admin-only' ); ?>
+									</a>
+								</span>
 							</p>
 						</div>
 					</div>
@@ -429,23 +443,28 @@ function admon_settings_page_callback() {
  * Handle reset settings action
  */
 function admon_handle_reset_settings() {
-	if ( ! isset( $_POST['admon_reset_nonce'] ) || ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_POST['admon_reset_nonce'] ) ), 'admon_reset_settings' ) ) {
+	if ( ! isset( $_SERVER['REQUEST_METHOD'] ) || 'POST' !== $_SERVER['REQUEST_METHOD'] ) {
 		return;
 	}
 
-	if ( ! current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) {
+	// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized -- Nonce value; wp_verify_nonce handles validation, sanitizing first is an anti-pattern.
+	if ( ! isset( $_POST['admon_reset_nonce'] ) || ! wp_verify_nonce( wp_unslash( $_POST['admon_reset_nonce'] ), 'admon_reset_settings' ) ) {
+		return;
+	}
+
+	if ( ! current_user_can( apply_filters( 'admon_settings_capability', 'manage_options' ) ) ) {
 		return;
 	}
 
 	if ( isset( $_POST['admon_reset_action'] ) && 'reset' === $_POST['admon_reset_action'] ) {
 		// Reset to default settings
 		$default_settings = array(
-			'session_timeout' => '',
+			'session_timeout'      => '',
 			'custom_timeout_hours' => '',
-			'apply_to_admins' => 0,
+			'apply_to_admins'      => 0,
 			'override_remember_me' => 0,
-			'allowed_users' => '',
-			'custom_redirect' => '',
+			'allowed_users'        => '',
+			'custom_redirect'      => '',
 		);
 
 		update_option( 'admin_only_settings', $default_settings );
@@ -474,8 +493,8 @@ function admon_add_help_tabs() {
 	// Overview Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_overview',
-			'title' => __( 'Overview', 'admin-only' ),
+			'id'      => 'admon_overview',
+			'title'   => __( 'Overview', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>UserFlow</strong> allows you to restrict access to the WordPress dashboard to administrators only. You can optionally whitelist specific users or capabilities.', 'admin-only' ) . '</p>',
 		)
 	);
@@ -483,18 +502,19 @@ function admon_add_help_tabs() {
 	// General Settings Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_access_control',
-			'title' => __( 'General Settings', 'admin-only' ),
+			'id'      => 'admon_access_control',
+			'title'   => __( 'General Settings', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Allowed Users:</strong> Enter a comma-separated list of usernames (e.g., <code>john_doe, jane_doe</code>) to allow specific non-admin users to access the dashboard.', 'admin-only' ) . '</p>' .
-				'<p>' . __( '<strong>Custom Redirect URL:</strong> By default, blocked users are redirected to the homepage. You can enter a custom URL here (must be within the same site) to redirect them to a specific page, such as a custom login or error page.', 'admin-only' ) . '</p>',
+				'<p>' . __( '<strong>Custom Redirect URL:</strong> By default, blocked users are redirected to the homepage. You can enter a custom URL here (must be within the same site) to redirect them to a specific page, such as a custom login or error page.', 'admin-only' ) . '</p>' .
+				'<p>' . __( '<strong>Note:</strong> WordPress AJAX requests (admin-ajax.php) are not blocked. Ensure any AJAX handlers perform their own capability checks.', 'admin-only' ) . '</p>',
 		)
 	);
 
 	// Session Management Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_session',
-			'title' => __( 'Session Management', 'admin-only' ),
+			'id'      => 'admon_session',
+			'title'   => __( 'Session Management', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Auto-Logout:</strong> Automatically log users out after a specific period of inactivity. This improves security, especially for shared computers.', 'admin-only' ) . '</p>' .
 				'<p>' . __( '<strong>Include Administrators:</strong> By default, administrators are exempt from auto-logout. Check this option to enforce the timeout for admins as well.', 'admin-only' ) . '</p>' .
 				'<p>' . __( '<strong>Override "Remember Me":</strong> If checked, the session timeout will apply even if the user checked "Remember Me" during login. Otherwise, "Remember Me" sessions will last for 14 days.', 'admin-only' ) . '</p>',
@@ -504,8 +524,8 @@ function admon_add_help_tabs() {
 	// Troubleshooting Tab.
 	$screen->add_help_tab(
 		array(
-			'id' => 'admon_troubleshooting',
-			'title' => __( 'Troubleshooting', 'admin-only' ),
+			'id'      => 'admon_troubleshooting',
+			'title'   => __( 'Troubleshooting', 'admin-only' ),
 			'content' => '<p>' . __( '<strong>Locked Out?</strong> If you accidentally lock yourself out, you can regain access by:', 'admin-only' ) . '</p>' .
 				'<ol>' .
 				'<li>' . __( 'Accessing your site files via FTP or Hosting File Manager.', 'admin-only' ) . '</li>' .

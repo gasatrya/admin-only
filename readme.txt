@@ -3,7 +3,7 @@ Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
 Tested up to: 7.0
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -49,6 +49,21 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 1. Plugin settings
 
 == Changelog ==
+
+
+= 1.3.1 =
+* Security: Hardened settings reset handler with request-method check and nonce improvements.
+* Improved: Replaced per-username DB queries with single batched query for settings save performance.
+* Improved: Added explicit access-control fallthrough logic and removed stale static cache.
+* Improved: Separated settings-page capability filter from dashboard-access filter.
+* Improved: Settings sanitization now guarantees consistent option shape on save.
+* Improved: Added meta-refresh fallback when redirect headers cannot be sent.
+* Improved: Username validation errors now show count only to prevent enumeration.
+* Added: Plugin uninstall handler to clean up stored options on deletion.
+* Added: AJAX bypass behavior documented in settings help tab.
+* Added: Sidebar promotion box for developer services.
+* Dev: Improved test mock fidelity for wp_validate_redirect and WP_User_Query.
+* Dev: Fixed Composer license to valid SPDX identifier.
 
 = 1.3.0 =
 * Rebranding: Formally renamed the plugin to **UserFlow**.

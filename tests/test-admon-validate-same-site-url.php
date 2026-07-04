@@ -26,5 +26,5 @@ admon_assert( false === admon_validate_same_site_url( 'data:text/html;base64,PHN
 
 // Test with special characters (sanitization check).
 admon_assert( 'https://example.com/path?param=value' === admon_validate_same_site_url( 'https://example.com/path?param=value' ), 'Internal URL with query params should be valid' );
-admon_assert( 'https://example.com/pathscript' === admon_validate_same_site_url( "https://example.com/path<script>" ), 'Special characters (brackets) should be stripped' );
-admon_assert( 'https://example.com/pathalert1' === admon_validate_same_site_url( "https://example.com/pathalert(1)" ), 'Special characters (parentheses) should be stripped' );
+admon_assert( 'https://example.com/pathscript' === admon_validate_same_site_url( 'https://example.com/path<script>' ), 'Special characters (brackets) should be stripped' );
+admon_assert( 'https://example.com/pathalert1' === admon_validate_same_site_url( 'https://example.com/pathalert(1)' ), 'Special characters (parentheses) should be stripped' );

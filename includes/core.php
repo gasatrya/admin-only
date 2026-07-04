@@ -24,24 +24,30 @@ function admon_validate_usernames_with_feedback( $usernames ) {
 		);
 	}
 
-	$username_list     = array_map( 'trim', explode( ',', $usernames ) );
-	$valid_usernames   = array();
-	$invalid_usernames = array();
+	$username_list = array_filter( array_map( 'trim', explode( ',', $usernames ) ) );
 
-	foreach ( $username_list as $username ) {
-		if ( ! empty( $username ) ) {
-			// Check if username exists in database.
-			$user = get_user_by( 'login', $username );
-			if ( $user ) {
-				$valid_usernames[] = $username;
-			} else {
-				$invalid_usernames[] = $username;
-			}
-		}
+	if ( empty( $username_list ) ) {
+		return array(
+			'valid_usernames'   => '',
+			'invalid_usernames' => array(),
+		);
 	}
 
+	// Batch query all usernames in a single DB call.
+	$user_query      = new WP_User_Query(
+		array(
+			'login__in'   => array_values( $username_list ),
+			'fields'      => 'user_login',
+			'count_total' => false,
+		)
+	);
+	$existing_logins = $user_query->get_results();
+
+	$valid_usernames   = array_values( array_intersect( $username_list, $existing_logins ) );
+	$invalid_usernames = array_values( array_diff( $username_list, $existing_logins ) );
+
 	return array(
-		'valid_usernames'   => implode( ', ', $valid_usernames ),
+		'valid_usernames'   => implode( ',', $valid_usernames ),
 		'invalid_usernames' => $invalid_usernames,
 	);
 }
@@ -52,7 +58,12 @@ function admon_validate_usernames_with_feedback( $usernames ) {
  */
 function admon_dashboard_redirect() {
 	if ( ! admon_user_has_access() && ! wp_doing_ajax() ) {
-		wp_safe_redirect( admon_get_redirect_url() );
+		$redirect_url = admon_get_redirect_url();
+		$redirected   = wp_safe_redirect( $redirect_url );
+		if ( ! $redirected ) {
+			// Headers already sent; fall back to meta refresh.
+			echo '<meta http-equiv="refresh" content="0;url=' . esc_url( $redirect_url ) . '">';
+		}
 		exit;
 	}
 }
@@ -75,13 +86,8 @@ add_filter( 'show_admin_bar', 'admon_hide_toolbar' );
  * @return bool True if user has access, false otherwise
  */
 function admon_user_has_access() {
-	static $has_access = null;
-
-	if ( null !== $has_access ) {
-		return $has_access;
-	}
-
-	$has_access = current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) );
+	$capability = apply_filters( 'admon_access_capability', 'manage_options' );
+	$has_access = current_user_can( $capability );
 
 	// Apply whitelist logic if settings exist.
 	$settings = get_option( 'admin_only_settings', array() );
@@ -90,11 +96,13 @@ function admon_user_has_access() {
 		$allowed_users = array_map( 'trim', explode( ',', $settings['allowed_users'] ) );
 
 		// Always allow administrators.
-		if ( current_user_can( apply_filters( 'admon_access_capability', 'manage_options' ) ) ) {
+		if ( current_user_can( $capability ) ) {
 			$has_access = true;
 		} elseif ( in_array( $current_user->user_login, $allowed_users, true ) ) {
 			// Check if user is in whitelist.
 			$has_access = true;
+		} else {
+			$has_access = false;
 		}
 	}
 

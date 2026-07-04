@@ -12,16 +12,16 @@ $test_files = glob( __DIR__ . '/test-*.php' );
 $failed     = false;
 
 foreach ( $test_files as $test_file ) {
-	echo "Running test: " . basename( $test_file ) . PHP_EOL;
+	echo 'Running test: ' . basename( $test_file ) . PHP_EOL;
 	require $test_file;
 }
 
 if ( $failed ) {
-	echo "Some tests failed!" . PHP_EOL;
+	echo 'Some tests failed!' . PHP_EOL;
 	exit( 1 );
 }
 
-echo "All tests passed!" . PHP_EOL;
+echo 'All tests passed!' . PHP_EOL;
 exit( 0 );
 
 /**
