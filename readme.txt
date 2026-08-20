@@ -2,8 +2,8 @@
 Contributors: gasatrya
 Tags: restrict, dashboard, login, access, membership
 Requires at least: 5.0
-Tested up to: 7.0
-Stable tag: 1.3.1
+Tested up to: 7.1
+Stable tag: 1.3.2
 Requires PHP: 7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
@@ -50,6 +50,8 @@ Protect your site, empower your workflow, and deliver a professional experienceâ
 
 == Changelog ==
 
+= 1.3.2 =
+* Updated WordPress compatibility declaration through version 7.1.
 
 = 1.3.1 =
 * Security: Hardened settings reset handler with request-method check and nonce improvements.

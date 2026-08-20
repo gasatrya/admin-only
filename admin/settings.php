@@ -112,7 +112,7 @@ function admon_enqueue_settings_scripts( $hook ) {
 		'admon-settings-js',
 		ADMON_PLUGIN_URL . 'admin/js/settings.js',
 		array(),
-		'1.3.1',
+		ADMON_VERSION,
 		true // Load in footer
 	);
 
@@ -120,7 +120,7 @@ function admon_enqueue_settings_scripts( $hook ) {
 		'admon-settings-css',
 		ADMON_PLUGIN_URL . 'admin/css/settings.css',
 		array(),
-		'1.3.1'
+		ADMON_VERSION
 	);
 }
 add_action( 'admin_enqueue_scripts', 'admon_enqueue_settings_scripts' );

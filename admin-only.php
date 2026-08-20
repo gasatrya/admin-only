@@ -11,7 +11,7 @@
  * Plugin Name:       UserFlow
  * Plugin URI:        https://wordpress.org/plugins/admin-only/
  * Description:       UserFlow: Only administrators can access the WordPress dashboard by default. Easily allow specific users to log in via a simple whitelist. Quick and easy setup.
- * Version:           1.3.1
+ * Version:           1.3.2
  * Requires at least: 6.5
  * Requires PHP:      7.0
  * Author:            Ga Satrya
@@ -26,6 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 // Define plugin constants.
+define( 'ADMON_VERSION', '1.3.2' );
 define( 'ADMON_PLUGIN_DIR', plugin_dir_path( __FILE__ ) );
 define( 'ADMON_PLUGIN_URL', plugin_dir_url( __FILE__ ) );
 
